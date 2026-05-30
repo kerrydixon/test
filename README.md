@@ -1,175 +1,79 @@
-# AirMiles Flight Search ✈️
+# World Cup USA 2026 — Fantasy Competition
 
-A beautiful, modern web application for searching and booking flights using airmiles. Search flights from any UK airport to international destinations worldwide.
+A web app that replaces the organiser's Excel-based tournament. Players self-submit
+entries; results are auto-scraped from a public source with an organiser override; and
+all eight scoring sections are computed live into a leaderboard.
 
-![AirMiles Flight Search](https://img.shields.io/badge/Built%20with-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![React](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+Built with **Next.js 16 + TypeScript + Tailwind v4 + Prisma 6 + Postgres**.
 
-## ✨ Features
+## The competition (8 scoring sections)
 
-- 🔍 **Smart Search** - Search flights from any UK airport to 40+ international destinations
-- 🎨 **Beautiful UI** - Modern glass-morphism design inspired by roame.travel premium
-- 📅 **Flexible Dates** - Search with ±3 days flexibility
-- ✈️ **Comprehensive Filters**:
-  - Cabin class (Economy, Premium Economy, Business, First)
-  - Maximum stops (Non-stop, 1 stop, 2 stops)
-  - Airlines (20+ major carriers)
-  - Miles range
-- 💺 **Live Availability** - See real-time seat availability
-- 🏆 **Award Miles** - View flights sorted by miles required
-- 📱 **Responsive Design** - Works perfectly on desktop, tablet, and mobile
+1. **Fantasy squad** — 2 teams + ≥5 goal-scorers, £5.3bn budget. Win/draw, goals
+   for/against, scorer goals and assists.
+2. **12 tournament questions** — 200 pts each.
+3. **Group placings** — predict the 1-2-3 of each of the 12 groups (24-row accuracy
+   matrix, up to 2,400 pts).
+4. **Knockout winners** — 250 pts per correct winner (R32 → Final).
 
-## 🚀 Getting Started
+All scoring rules live in pure, unit-tested modules under `lib/scoring/`.
 
-### Prerequisites
+## Local development
 
-- Node.js 18+ installed on your machine
-- npm or yarn package manager
+Requires Node 20+ and a local Postgres.
 
-### Installation
-
-1. Clone the repository:
-```bash
-git clone <your-repo-url>
-cd airmiles-search
-```
-
-2. Install dependencies:
 ```bash
 npm install
+cp .env.example .env          # then edit DATABASE_URL + ADMIN_PASSWORD
+npm run db:push               # create tables
+npm run db:seed               # 48 teams, 12 groups, 72 group fixtures
+npm run dev                   # http://localhost:3000
 ```
 
-3. Run the development server:
-```bash
-npm run dev
-```
-
-4. Open your browser and navigate to `http://localhost:5173`
-
-## 📦 Build for Production
-
-Build the application for production:
+- Public site: `/`, `/submit`, `/leaderboard`, `/groups`, `/fixtures`, `/entrant/[id]`.
+- Organiser area: `/admin` (sign in with `ADMIN_PASSWORD`).
 
 ```bash
-npm run build
+npm test            # scoring engine + budget + scraper parser tests
+npm run build       # production build
 ```
 
-Preview the production build locally:
+## How results flow in
 
-```bash
-npm run preview
-```
+- A **scraper** (`lib/ingestion/`) reads a public results page (Wikipedia by default,
+  override with `WIKIPEDIA_RESULTS_URL`) and maps matches/goals into the database.
+- It runs on a schedule via **Vercel Cron** (`vercel.json`, every 3 hours) and on demand
+  via the admin **“Refresh results now”** button.
+- The scraper **never** overwrites a match marked **locked**, and it preserves any
+  manually-entered goals. The organiser confirms granular fields (assists, own-goals,
+  shoot-outs) and the judgement-based questions (Golden Boot, top-scoring group, …).
 
-## 🌐 Deploy to GitHub Pages
+> The live results page is empty until the tournament starts (11 June 2026), and the
+> Wikipedia `footballbox` selectors are a starting point — confirm them against the live
+> page once matches begin. The scraper parser is unit-tested against a saved fixture.
 
-### Option 1: Manual Deployment
+## Deploying to Vercel
 
-1. Build and deploy:
-```bash
-npm run deploy
-```
+The app lives at the repo root, so no Root Directory setting is needed.
 
-This will build the app and deploy it to the `gh-pages` branch.
+1. Import this repo in Vercel (Framework auto-detects as Next.js).
+2. **Storage → create a Postgres store** and attach it to the project (one click — it
+   injects `DATABASE_URL` automatically; no separate signup). Do this *before* the first
+   deploy.
+3. Set environment variables: `ADMIN_PASSWORD` and `CRON_SECRET`.
+4. Deploy. The `buildCommand` in `vercel.json` runs `prisma db push` and the idempotent
+   seed automatically, so tables are created and populated on the first deploy — no manual
+   database steps. (The seed never overwrites results or entries on later deploys.)
+5. The cron in `vercel.json` calls `/api/cron/sync` automatically.
 
-### Option 2: Automatic Deployment with GitHub Actions
+Pushes to the repo's default branch trigger an auto-deploy.
 
-The repository includes a GitHub Actions workflow that automatically deploys to GitHub Pages on every push to the main branch.
+### Self-hosted alternative (no Vercel)
 
-To enable it:
+Run anywhere with Node + Postgres: `npm run build && npm run start`. Replace Vercel Cron
+with a system cron / `node-cron` that GETs `/api/cron/sync` with the `CRON_SECRET` bearer.
 
-1. Go to your repository Settings
-2. Navigate to Pages (in the sidebar)
-3. Under "Build and deployment", select "GitHub Actions" as the source
-4. Push to main branch and the site will automatically deploy
+## Not yet built (intentional follow-ups)
 
-Your site will be available at: `https://<username>.github.io/<repository>/`
-
-## 🎯 How to Use
-
-1. **Select Origin** - Choose your departure airport (all major UK airports available)
-2. **Select Destination** - Choose your destination from 40+ international airports
-3. **Pick a Date** - Select your departure date
-4. **Choose Cabin Class** - Economy, Premium Economy, Business, or First
-5. **Enable Flexible Dates** (optional) - Search ±3 days around your selected date
-6. **Click Search** - View available flights
-7. **Apply Filters** - Refine results by airline, stops, cabin class, or miles
-8. **Book** - Click the book button on your preferred flight
-
-## 🛠️ Tech Stack
-
-- **Framework**: React 19.2 with TypeScript
-- **Build Tool**: Vite 7.3
-- **Styling**: Tailwind CSS 4.1 with custom glass-morphism effects
-- **Icons**: Lucide React
-- **Date Handling**: date-fns
-- **Deployment**: GitHub Pages
-
-## 📁 Project Structure
-
-```
-airmiles-search/
-├── src/
-│   ├── components/
-│   │   ├── SearchBar.tsx      # Search interface
-│   │   ├── FlightCard.tsx     # Flight result card
-│   │   └── FilterSidebar.tsx  # Filters panel
-│   ├── data/
-│   │   ├── airports.ts        # UK & international airports
-│   │   ├── airlines.ts        # Major airlines
-│   │   └── flights.ts         # Dummy flight data generator
-│   ├── types/
-│   │   └── index.ts           # TypeScript types
-│   ├── App.tsx                # Main application
-│   ├── index.css              # Global styles
-│   └── main.tsx               # Entry point
-├── public/                    # Static assets
-└── dist/                      # Production build
-```
-
-## 🎨 Design Features
-
-- **Glass Morphism** - Modern frosted glass effect on cards and panels
-- **Gradient Backgrounds** - Smooth color transitions
-- **Hover Effects** - Interactive card animations
-- **Responsive Grid** - Adapts to all screen sizes
-- **Color-coded Availability** - Visual indicators for seat availability
-- **Cabin Class Badges** - Easy identification of flight class
-
-## 📊 Data
-
-Currently, the app uses **dummy data** for demonstration purposes:
-- 12 UK Airports
-- 40+ International Airports
-- 20+ Airlines
-- 500+ Generated Flights
-
-## 🔮 Future Enhancements
-
-- Integration with real flight APIs
-- User authentication and saved searches
-- Price alerts and notifications
-- Multi-city search
-- Return flight booking
-- Points calculator
-- Loyalty program integration
-- Advanced calendar view
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🙏 Acknowledgments
-
-- UI/UX inspired by [roame.travel](https://roame.travel) premium
-- Icons by [Lucide](https://lucide.dev)
-- Built with [Vite](https://vitejs.dev) and [React](https://react.dev)
-
----
-
-Built with ❤️ for travelers who love to maximize their airmiles
+- **Part 4 public submission** (`/submit/knockout`): the knockout prediction form opens
+  after the group stage, once fixtures are known and deadlines are set. The data model,
+  scoring (`scorePart4`) and admin knockout-fixture creation are already in place.
