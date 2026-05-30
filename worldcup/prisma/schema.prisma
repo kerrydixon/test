@@ -1,0 +1,199 @@
+// World Cup USA 2026 fantasy competition — data model.
+// See lib/scoring for how these rows are scored.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Stage {
+  GROUP
+  R32
+  R16
+  QF
+  SF
+  FINAL
+}
+
+enum MatchStatus {
+  SCHEDULED
+  LIVE
+  FINISHED
+}
+
+enum DataSource {
+  SCRAPE
+  MANUAL
+}
+
+model Team {
+  id            String  @id @default(cuid())
+  name          String  @unique
+  groupCode     String // "A".."L"
+  priceTier     Int // £m valuation
+  confederation String
+  isHost        Boolean @default(false)
+  flagEmoji     String  @default("🏳️")
+
+  homeMatches      Match[]            @relation("home")
+  awayMatches      Match[]            @relation("away")
+  shootoutWins     Match[]            @relation("shootoutWinner")
+  events           MatchEvent[]
+  entrantTeams     EntrantTeam[]
+  knockoutPicks    KnockoutPrediction[]
+  groupFirstPicks  GroupPrediction[]  @relation("first")
+  groupSecondPicks GroupPrediction[]  @relation("second")
+  groupThirdPicks  GroupPrediction[]  @relation("third")
+
+  @@index([groupCode])
+}
+
+model Match {
+  id          String      @id @default(cuid())
+  externalRef String?     @unique // stable key from the scraped source
+  stage       Stage
+  groupCode   String? // set for GROUP stage
+  kickoff     DateTime?
+  status      MatchStatus @default(SCHEDULED)
+
+  homeTeamId String
+  awayTeamId String
+  homeTeam   Team   @relation("home", fields: [homeTeamId], references: [id])
+  awayTeam   Team   @relation("away", fields: [awayTeamId], references: [id])
+
+  homeGoals             Int? // final score after ET, excluding shoot-out
+  awayGoals             Int?
+  wentToExtraTime       Boolean @default(false)
+  shootoutWinnerTeamId  String?
+  shootoutWinner        Team?   @relation("shootoutWinner", fields: [shootoutWinnerTeamId], references: [id])
+
+  source      DataSource @default(MANUAL)
+  adminLocked Boolean    @default(false) // freeze against scraper overwrites
+  updatedAt   DateTime   @updatedAt
+
+  events             MatchEvent[]
+  knockoutPredictions KnockoutPrediction[]
+
+  @@index([stage])
+  @@index([groupCode])
+}
+
+model MatchEvent {
+  id          String     @id @default(cuid())
+  matchId     String
+  match       Match      @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  teamId      String // team the goal counts FOR (benefiting team for own goals)
+  team        Team       @relation(fields: [teamId], references: [id])
+  scorerName  String
+  assistName  String?
+  minute      Int        @default(0)
+  isOwnGoal   Boolean    @default(false)
+  isExtraTime Boolean    @default(false)
+  isShootout  Boolean    @default(false)
+  source      DataSource @default(MANUAL)
+
+  @@index([matchId])
+}
+
+model Entrant {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  locked    Boolean  @default(false) // organiser locks before kickoff
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teams              EntrantTeam[]
+  scorers            FantasyScorer[]
+  part2Answers       Part2Answer[]
+  groupPredictions   GroupPrediction[]
+  knockoutPredictions KnockoutPrediction[]
+}
+
+model EntrantTeam {
+  id        String  @id @default(cuid())
+  entrantId String
+  entrant   Entrant @relation(fields: [entrantId], references: [id], onDelete: Cascade)
+  teamId    String
+  team      Team    @relation(fields: [teamId], references: [id])
+
+  @@unique([entrantId, teamId])
+}
+
+model FantasyScorer {
+  id         String  @id @default(cuid())
+  entrantId  String
+  entrant    Entrant @relation(fields: [entrantId], references: [id], onDelete: Cascade)
+  playerName String
+  country    String?
+
+  @@index([entrantId])
+}
+
+model Part2Answer {
+  id         String  @id @default(cuid())
+  entrantId  String
+  entrant    Entrant @relation(fields: [entrantId], references: [id], onDelete: Cascade)
+  questionNo Int // 1..12
+  answer     String
+
+  @@unique([entrantId, questionNo])
+}
+
+model GroupPrediction {
+  id            String  @id @default(cuid())
+  entrantId     String
+  entrant       Entrant @relation(fields: [entrantId], references: [id], onDelete: Cascade)
+  groupCode     String
+  firstTeamId   String
+  secondTeamId  String
+  thirdTeamId   String
+  first         Team    @relation("first", fields: [firstTeamId], references: [id])
+  second        Team    @relation("second", fields: [secondTeamId], references: [id])
+  third         Team    @relation("third", fields: [thirdTeamId], references: [id])
+
+  @@unique([entrantId, groupCode])
+}
+
+model KnockoutPrediction {
+  id              String  @id @default(cuid())
+  entrantId       String
+  entrant         Entrant @relation(fields: [entrantId], references: [id], onDelete: Cascade)
+  matchId         String
+  match           Match   @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  predictedTeamId String
+  predicted       Team    @relation(fields: [predictedTeamId], references: [id])
+
+  @@unique([entrantId, matchId])
+}
+
+model Part2OfficialAnswer {
+  questionNo Int      @id // 1..12
+  answers    String[] // acceptable answers (ties allow several)
+}
+
+model GroupStandingOverride {
+  groupCode    String @id // "A".."L"
+  firstTeamId  String
+  secondTeamId String
+  thirdTeamId  String
+}
+
+model Setting {
+  key   String @id
+  value String
+}
+
+model SyncLog {
+  id        String   @id @default(cuid())
+  ranAt     DateTime @default(now())
+  ok        Boolean
+  message   String
+  created   Int      @default(0)
+  updated   Int      @default(0)
+  skipped   Int      @default(0)
+}
