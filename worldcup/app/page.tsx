@@ -1,65 +1,102 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, ListChecks, Medal, Target, Users } from "lucide-react";
+import Countdown from "@/components/Countdown";
+import { getSetting } from "@/lib/data";
 
-export default function Home() {
+const FIRST_MATCH = "2026-06-11T16:00:00.000Z"; // Mexico v South Africa
+
+const SECTIONS = [
+  { icon: Users, title: "Fantasy squad", text: "Buy 2 teams + 5 or more goal-scorers with a £5.3bn budget. Earn points for wins, goals and assists." },
+  { icon: Target, title: "12 tournament questions", text: "Specific predictions — first match, Golden Boot, host goals and more. 200 points each." },
+  { icon: ListChecks, title: "Group placings", text: "Predict the 1-2-3 finishing order in all twelve groups. Up to 2,400 points." },
+  { icon: Medal, title: "Knockout winners", text: "Pick the winner of every match from the round of 32 to the final. 250 points each." },
+];
+
+const PRIZES = [
+  { place: "1st", pct: "60%", ring: "ring-amber-400", text: "text-amber-600" },
+  { place: "2nd", pct: "30%", ring: "ring-slate-300", text: "text-slate-500" },
+  { place: "3rd", pct: "10%", ring: "ring-orange-300", text: "text-orange-600" },
+];
+
+export default async function HomePage() {
+  const deadline = (await getSetting("submissionDeadline")) ?? FIRST_MATCH;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div>
+      {/* Hero */}
+      <section className="hero-gradient text-white">
+        <div className="container-page grid gap-10 py-16 sm:py-20 lg:grid-cols-2 lg:items-center">
+          <div>
+            <span className="pill bg-white/15 text-emerald-100">USA · Canada · Mexico</span>
+            <h1 className="mt-4 text-4xl font-extrabold leading-tight sm:text-5xl">
+              The World Cup 2026 Fantasy Competition
+            </h1>
+            <p className="mt-4 max-w-lg text-emerald-100">
+              Four parts, eight ways to score. Build your fantasy squad, call the
+              groups and the knockouts, and battle 50+ rivals for the prize pot.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/submit" className="btn bg-white text-emerald-700 hover:bg-emerald-50">
+                Submit your entry <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/leaderboard" className="btn border border-white/30 text-white hover:bg-white/10">
+                View leaderboard
+              </Link>
+            </div>
+          </div>
+
+          <div className="lg:justify-self-end">
+            <div className="rounded-2xl bg-white/10 p-6 backdrop-blur">
+              <p className="text-sm font-medium text-emerald-100">
+                Entries close before the first kick-off
+              </p>
+              <p className="mb-4 text-lg font-semibold">Mexico v South Africa · 11 June</p>
+              <Countdown target={deadline} />
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Scoring sections */}
+      <section className="container-page py-14">
+        <h2 className="text-2xl font-bold text-slate-900">How scoring works</h2>
+        <p className="mt-1 text-slate-500">Eight unique scoring sections across the tournament.</p>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {SECTIONS.map((s) => (
+            <div key={s.title} className="card p-5">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                <s.icon className="h-5 w-5" />
+              </span>
+              <h3 className="mt-4 font-semibold text-slate-900">{s.title}</h3>
+              <p className="mt-1 text-sm text-slate-500">{s.text}</p>
+            </div>
+          ))}
         </div>
-      </main>
+      </section>
+
+      {/* Prizes */}
+      <section className="container-page pb-16">
+        <div className="card overflow-hidden">
+          <div className="grid gap-8 p-8 sm:grid-cols-2 sm:items-center">
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900">Prize pot</h2>
+              <p className="mt-2 text-slate-500">
+                The prize fund is the total of all entry fees, split between the
+                top three on the final leaderboard.
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              {PRIZES.map((p) => (
+                <div key={p.place} className={`rounded-2xl bg-slate-50 p-4 text-center ring-2 ${p.ring}`}>
+                  <div className={`text-sm font-semibold ${p.text}`}>{p.place}</div>
+                  <div className="mt-1 text-2xl font-extrabold text-slate-900">{p.pct}</div>
+                  <div className="text-xs text-slate-400">of fees</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

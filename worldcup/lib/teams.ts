@@ -145,6 +145,35 @@ const FLAGS: Record<string, string> = {
   Panama: "🇵🇦",
 };
 
+// Maps alternative spellings used by data sources to our canonical team names.
+export const TEAM_ALIASES: Record<string, string> = {
+  "united states": "USA",
+  "united states of america": "USA",
+  "south korea": "South Korea",
+  "korea republic": "South Korea",
+  "türkiye": "Turkiye",
+  turkey: "Turkiye",
+  "czech republic": "Czechia",
+  "côte d'ivoire": "Ivory Coast",
+  "cote d'ivoire": "Ivory Coast",
+  "cabo verde": "Cape Verde",
+  "bosnia and herzegovina": "Bosnia & Herzegovina",
+  "dr congo": "DR Congo",
+  "democratic republic of the congo": "DR Congo",
+  curaçao: "Curacao",
+};
+
+/** Resolve a source's team name to our canonical name (or null if unknown). */
+export function resolveTeamName(raw: string): string | null {
+  const trimmed = raw.trim();
+  const direct = ALL_TEAMS.find(
+    (t) => t.name.toLowerCase() === trimmed.toLowerCase(),
+  );
+  if (direct) return direct.name;
+  const alias = TEAM_ALIASES[trimmed.toLowerCase()];
+  return alias ?? null;
+}
+
 // Group line-ups exactly as listed in the brief (Parts Three).
 export const GROUPS: Record<string, string[]> = {
   A: ["Mexico", "South Africa", "South Korea", "Czechia"],
