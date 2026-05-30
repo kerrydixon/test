@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { Plus, Trash2 } from "lucide-react";
-import { submitEntry } from "@/app/submit/actions";
+import { submitEntry } from "@/app/(worldcup)/submit/actions";
 import { validateFantasy, TOTAL_BUDGET } from "@/lib/fantasy-budget";
 import { PART2_QUESTIONS } from "@/lib/part2-questions";
 
