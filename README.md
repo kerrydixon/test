@@ -41,8 +41,9 @@ npm run build       # production build
 
 - A **scraper** (`lib/ingestion/`) reads a public results page (Wikipedia by default,
   override with `WIKIPEDIA_RESULTS_URL`) and maps matches/goals into the database.
-- It runs on a schedule via **Vercel Cron** (`vercel.json`, every 3 hours) and on demand
-  via the admin **“Refresh results now”** button.
+- It runs on a schedule via **Vercel Cron** (`vercel.json`, once daily — the Hobby-plan
+  limit) and on demand via the admin **“Refresh results now”** button, which is the main
+  way to update during match days (Pro plans can increase the cron frequency).
 - The scraper **never** overwrites a match marked **locked**, and it preserves any
   manually-entered goals. The organiser confirms granular fields (assists, own-goals,
   shoot-outs) and the judgement-based questions (Golden Boot, top-scoring group, …).
