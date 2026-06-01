@@ -9,6 +9,7 @@ import {
   startAdminSession,
 } from "@/lib/auth";
 import { sync } from "@/lib/ingestion/sync";
+import { simulateGroupStage, wipeAllData } from "@/lib/demo/simulate";
 
 export async function login(formData: FormData) {
   const password = String(formData.get("password") ?? "");
@@ -24,11 +25,29 @@ export async function logout() {
   redirect("/admin/login");
 }
 
-export async function runSync() {
-  await requireAdmin();
-  await sync();
+function revalidateEverything() {
   revalidatePath("/admin");
   revalidatePath("/groups");
   revalidatePath("/fixtures");
   revalidatePath("/leaderboard");
+}
+
+export async function runSync() {
+  await requireAdmin();
+  await sync();
+  revalidateEverything();
+}
+
+export async function simulateGroupStageAction() {
+  await requireAdmin();
+  await simulateGroupStage();
+  revalidateEverything();
+  revalidatePath("/admin/entries");
+}
+
+export async function wipeAllDataAction() {
+  await requireAdmin();
+  await wipeAllData();
+  revalidateEverything();
+  revalidatePath("/admin/entries");
 }

@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { RefreshCw } from "lucide-react";
+import { FlaskConical, RefreshCw, Trash2 } from "lucide-react";
 import { prisma } from "@/lib/db";
-import { runSync } from "../actions";
+import { runSync, simulateGroupStageAction, wipeAllDataAction } from "../actions";
 
 export const dynamic = "force-dynamic";
+// Simulation/wipe touch many rows; give the action room beyond the default.
+export const maxDuration = 60;
 
 export default async function AdminDashboard() {
   const [entrants, matchesPlayed, matchesTotal, logs] = await Promise.all([
@@ -69,6 +71,34 @@ export default async function AdminDashboard() {
             </tbody>
           </table>
         )}
+      </div>
+
+      {/* Testing tools */}
+      <div className="card mt-8 border-dashed p-5">
+        <div className="flex items-center gap-2 text-slate-900">
+          <FlaskConical className="h-4 w-4 text-violet-600" />
+          <h2 className="font-semibold">Testing tools</h2>
+        </div>
+        <p className="mt-1 text-sm text-slate-500">
+          Simulate a full group stage (random results + 8 sample “Demo …” entrants) to
+          check scoring, then wipe everything back to the seeded state.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <form action={simulateGroupStageAction}>
+            <button className="btn-secondary">
+              <FlaskConical className="h-4 w-4" /> Simulate full group stage
+            </button>
+          </form>
+          <form action={wipeAllDataAction}>
+            <button className="btn-danger">
+              <Trash2 className="h-4 w-4" /> Wipe ALL data
+            </button>
+          </form>
+        </div>
+        <p className="mt-3 text-xs text-slate-400">
+          “Wipe ALL data” deletes every entrant and clears all results/answers — leaving
+          only the 48 teams and 72 group fixtures. There is no undo.
+        </p>
       </div>
     </div>
   );
