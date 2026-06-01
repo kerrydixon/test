@@ -47,6 +47,29 @@ export async function sync(
     return canonical ? (idByName.get(canonical) ?? null) : null;
   };
 
+  // Replace a match's scraped goal events (manual events are left untouched).
+  const writeEvents = async (matchId: string, goals: RawMatch["goals"]) => {
+    await prisma.matchEvent.deleteMany({ where: { matchId, source: "SCRAPE" } });
+    if (!goals) return;
+    for (const g of goals) {
+      const teamId = resolveId(g.teamName);
+      if (!teamId) continue;
+      await prisma.matchEvent.create({
+        data: {
+          matchId,
+          teamId,
+          scorerName: g.scorerName,
+          assistName: g.assistName ?? null,
+          minute: g.minute,
+          isOwnGoal: g.isOwnGoal,
+          isExtraTime: g.isExtraTime,
+          isShootout: g.isShootout,
+          source: "SCRAPE",
+        },
+      });
+    }
+  };
+
   for (const rm of raw) {
     const homeTeamId = resolveId(rm.homeTeamName);
     const awayTeamId = resolveId(rm.awayTeamName);
@@ -55,14 +78,22 @@ export async function sync(
       continue;
     }
 
-    const existing = await prisma.match.findFirst({
-      where: {
-        OR: [
-          { externalRef: rm.externalRef },
-          { stage: rm.stage, homeTeamId, awayTeamId },
-        ],
-      },
+    // Find the existing fixture: first by external ref, otherwise by the
+    // UNORDERED team pair within the same stage (home/away may be swapped vs ours).
+    let existing = await prisma.match.findFirst({
+      where: { externalRef: rm.externalRef },
     });
+    if (!existing) {
+      existing = await prisma.match.findFirst({
+        where: {
+          stage: rm.stage,
+          OR: [
+            { homeTeamId, awayTeamId },
+            { homeTeamId: awayTeamId, awayTeamId: homeTeamId },
+          ],
+        },
+      });
+    }
 
     if (existing?.adminLocked) {
       skipped++;
@@ -72,50 +103,55 @@ export async function sync(
     const shootoutWinnerTeamId = rm.shootoutWinnerName
       ? resolveId(rm.shootoutWinnerName)
       : null;
+    const played = rm.homeGoals != null && rm.awayGoals != null;
+    // Map the scraped goals onto each team so we can orient them correctly.
+    const goalsByTeam = new Map<string, number | null>([
+      [homeTeamId, rm.homeGoals ?? null],
+      [awayTeamId, rm.awayGoals ?? null],
+    ]);
 
-    const scalarData = {
-      externalRef: rm.externalRef,
-      stage: rm.stage,
-      groupCode: rm.groupCode ?? null,
-      homeTeamId,
-      awayTeamId,
-      status: rm.status,
-      homeGoals: rm.homeGoals ?? null,
-      awayGoals: rm.awayGoals ?? null,
-      wentToExtraTime: rm.wentToExtraTime ?? false,
-      shootoutWinnerTeamId,
-      source: "SCRAPE" as const,
-    };
-
-    const match = existing
-      ? await prisma.match.update({ where: { id: existing.id }, data: scalarData })
-      : await prisma.match.create({ data: scalarData });
-    if (existing) updated++;
-    else created++;
-
-    // Replace scraped goal events; keep any manually-entered ones.
-    if (rm.goals) {
-      await prisma.matchEvent.deleteMany({
-        where: { matchId: match.id, source: "SCRAPE" },
-      });
-      for (const g of rm.goals) {
-        const teamId = resolveId(g.teamName);
-        if (!teamId) continue;
-        await prisma.matchEvent.create({
-          data: {
-            matchId: match.id,
-            teamId,
-            scorerName: g.scorerName,
-            assistName: g.assistName ?? null,
-            minute: g.minute,
-            isOwnGoal: g.isOwnGoal,
-            isExtraTime: g.isExtraTime,
-            isShootout: g.isShootout,
-            source: "SCRAPE",
-          },
-        });
+    if (!existing) {
+      // Every group pairing is pre-seeded, so a group match should always be
+      // found above; never create one (that's what caused duplicate fixtures).
+      // Knockout fixtures aren't pre-seeded, so create those as the bracket forms.
+      if (rm.stage === "GROUP") {
+        skipped++;
+        continue;
       }
+      const newMatch = await prisma.match.create({
+        data: {
+          externalRef: rm.externalRef,
+          stage: rm.stage,
+          groupCode: rm.groupCode ?? null,
+          homeTeamId,
+          awayTeamId,
+          status: rm.status,
+          homeGoals: played ? (rm.homeGoals ?? null) : null,
+          awayGoals: played ? (rm.awayGoals ?? null) : null,
+          wentToExtraTime: rm.wentToExtraTime ?? false,
+          shootoutWinnerTeamId,
+          source: "SCRAPE",
+        },
+      });
+      created++;
+      await writeEvents(newMatch.id, rm.goals);
+      continue;
     }
+
+    // Update in place, keeping our home/away orientation and orienting the score.
+    await prisma.match.update({
+      where: { id: existing.id },
+      data: {
+        status: rm.status,
+        homeGoals: played ? (goalsByTeam.get(existing.homeTeamId) ?? null) : null,
+        awayGoals: played ? (goalsByTeam.get(existing.awayTeamId) ?? null) : null,
+        wentToExtraTime: rm.wentToExtraTime ?? false,
+        shootoutWinnerTeamId,
+        source: "SCRAPE",
+      },
+    });
+    updated++;
+    await writeEvents(existing.id, rm.goals);
   }
 
   const result: SyncResult = {

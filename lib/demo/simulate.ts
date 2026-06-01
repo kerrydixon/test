@@ -210,6 +210,15 @@ export async function wipeAllData(): Promise<void> {
   await prisma.groupStandingOverride.deleteMany({});
   await prisma.part2OfficialAnswer.updateMany({ data: { answers: [] } });
   await prisma.syncLog.deleteMany({});
-  // Remove any knockout matches created during testing (keep the 72 group fixtures).
-  await prisma.match.deleteMany({ where: { stage: { not: "GROUP" } } });
+  // Remove any non-canonical matches created during testing/scraping: all
+  // knockout fixtures, plus any scraped group duplicates (the seeded ones use
+  // externalRef "GRP-..."). This leaves exactly the 72 seeded group fixtures.
+  await prisma.match.deleteMany({
+    where: {
+      OR: [
+        { stage: { not: "GROUP" } },
+        { stage: "GROUP", NOT: { externalRef: { startsWith: "GRP-" } } },
+      ],
+    },
+  });
 }
