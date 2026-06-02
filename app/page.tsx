@@ -3,6 +3,8 @@ import { ArrowRight, ListChecks, Medal, Target, Users } from "lucide-react";
 import Countdown from "@/components/Countdown";
 import { getSetting } from "@/lib/data";
 
+export const dynamic = "force-dynamic"; // reads the submission deadline from the DB
+
 const FIRST_MATCH = "2026-06-11T16:00:00.000Z"; // Mexico v South Africa
 
 const SECTIONS = [
@@ -71,6 +73,11 @@ export default async function HomePage() {
               <p className="mt-1 text-sm text-slate-500">{s.text}</p>
             </div>
           ))}
+        </div>
+        <div className="mt-6">
+          <Link href="/rules" className="btn-secondary">
+            Read the full rules &amp; scoring
+          </Link>
         </div>
       </section>
 

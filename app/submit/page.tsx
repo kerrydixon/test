@@ -18,6 +18,11 @@ export default async function SubmitPage() {
       <p className="mt-1 max-w-2xl text-slate-500">
         Build your fantasy squad, answer the tournament questions and predict the
         group placings. You can jump between steps — nothing is saved until you submit.
+        New here?{" "}
+        <Link href="/rules" className="font-medium text-emerald-600 hover:underline">
+          Read how scoring works
+        </Link>
+        .
       </p>
 
       {open ? (
