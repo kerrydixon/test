@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { ALL_TEAMS, GROUPS } from "../lib/teams";
+import { importEntries } from "../lib/import-entries";
 
 const prisma = new PrismaClient();
 
@@ -76,9 +77,16 @@ async function main() {
     });
   }
 
+  console.log("Importing entries from data/entries…");
+  const imported = await importEntries(prisma);
+  if (imported.imported.length) console.log(`  imported: ${imported.imported.join(", ")}`);
+  if (imported.skipped.length) console.log(`  already present: ${imported.skipped.join(", ")}`);
+  for (const e of imported.errors) console.error(`  INVALID ${e.file}: ${e.error}`);
+
   const teamCount = await prisma.team.count();
   const matchCount = await prisma.match.count();
-  console.log(`Done. ${teamCount} teams, ${matchCount} matches.`);
+  const entrantCount = await prisma.entrant.count();
+  console.log(`Done. ${teamCount} teams, ${matchCount} matches, ${entrantCount} entrants.`);
 }
 
 main()

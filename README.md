@@ -37,6 +37,15 @@ npm test            # scoring engine + budget + scraper parser tests
 npm run build       # production build
 ```
 
+## How entries flow in
+
+Players can self-submit at `/submit`, **or** entries received offline (e.g. a filled
+Word document) are transcribed into a JSON file in `data/entries/` (see
+`kerry-dixon.json` for the shape). Every deploy validates and imports any new files —
+import is idempotent (matched by entrant name, case-insensitive), so existing entries
+are never duplicated or overwritten. Imported entries are created **locked**, which
+also protects them from the admin "Wipe ALL data" testing tool.
+
 ## How results flow in
 
 - A **scraper** (`lib/ingestion/`) reads a public results page (Wikipedia by default,

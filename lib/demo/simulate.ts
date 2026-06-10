@@ -193,9 +193,14 @@ export async function simulateGroupStage(): Promise<SimSummary> {
   };
 }
 
-/** Reset the database back to the freshly-seeded state (removes all results & entries). */
+/**
+ * Reset the database back to the freshly-seeded state: removes all results, demo
+ * data and unlocked entries. LOCKED entrants (verified real submissions, e.g.
+ * imported from data/entries) are kept — only their knockout picks for deleted
+ * matches cascade away.
+ */
 export async function wipeAllData(): Promise<void> {
-  await prisma.entrant.deleteMany({}); // cascades to picks/predictions
+  await prisma.entrant.deleteMany({ where: { locked: false } }); // cascades picks
   await prisma.matchEvent.deleteMany({});
   await prisma.match.updateMany({
     data: {

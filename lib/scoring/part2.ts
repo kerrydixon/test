@@ -1,17 +1,15 @@
 // Part 2 — 12 World Cup specific questions, 200 points each.
 // The organiser records the official answer(s) per question. Some questions allow
 // ties (Q3, Q7, Q11), so each official answer is a set: an entrant scores if their
-// answer is a member of that set. Matching is case-insensitive and trimmed so
-// free-text answers (player / team names) are forgiving.
+// answer is a member of that set. Matching ignores case, accents, punctuation and
+// extra spaces so free-text answers ("Mbappé, France" vs "Mbappe (France)") are
+// forgiving.
 
 import type { Part2OfficialAnswers } from "./types";
+import { normaliseName as normalise } from "./names";
 
 export const PART2_POINTS_PER_QUESTION = 200;
 export const PART2_QUESTION_NUMBERS = Array.from({ length: 12 }, (_, i) => i + 1);
-
-function normalise(value: string): string {
-  return value.trim().toLowerCase().replace(/\s+/g, " ");
-}
 
 export interface Part2Breakdown {
   total: number;

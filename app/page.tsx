@@ -16,7 +16,7 @@ const SECTIONS = [
 
 const PRIZES = [
   { place: "1st", pct: "60%", ring: "ring-amber-400", text: "text-amber-600" },
-  { place: "2nd", pct: "25%", ring: "ring-slate-300", text: "text-slate-500" },
+  { place: "2nd", pct: "30%", ring: "ring-slate-300", text: "text-slate-500" },
   { place: "3rd", pct: "10%", ring: "ring-orange-300", text: "text-orange-600" },
 ];
 

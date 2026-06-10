@@ -1,0 +1,34 @@
+{
+  "name": "Kerry Dixon",
+  "email": null,
+  "teams": ["Spain", "Brazil"],
+  "scorers": ["Mbappé", "Kane", "Yamal", "Oyarzabal", "Vinicius"],
+  "part2": {
+    "1": "USA win",
+    "2": "Argentina",
+    "3": "Argentina",
+    "4": "Negative",
+    "5": "First",
+    "6": "5+",
+    "7": "C",
+    "8": "15",
+    "9": "8",
+    "10": "12+",
+    "11": "Mbappé, France",
+    "12": "Spain"
+  },
+  "groups": {
+    "A": ["Mexico", "South Korea", "Czechia"],
+    "B": ["Switzerland", "Canada", "Bosnia & Herzegovina"],
+    "C": ["Brazil", "Morocco", "Scotland"],
+    "D": ["USA", "Turkiye", "Paraguay"],
+    "E": ["Germany", "Ecuador", "Ivory Coast"],
+    "F": ["Japan", "Netherlands", "Sweden"],
+    "G": ["Belgium", "Egypt", "Iran"],
+    "H": ["Spain", "Uruguay", "Cape Verde"],
+    "I": ["France", "Norway", "Senegal"],
+    "J": ["Argentina", "Austria", "Algeria"],
+    "K": ["Portugal", "Colombia", "DR Congo"],
+    "L": ["England", "Croatia", "Ghana"]
+  }
+}

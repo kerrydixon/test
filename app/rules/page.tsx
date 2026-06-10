@@ -72,8 +72,8 @@ export default function RulesPage() {
       <h1 className="text-3xl font-bold text-slate-900">Rules &amp; Scoring</h1>
       <p className="mt-1 max-w-2xl text-slate-500">
         Four parts, eight scoring sections. Here&apos;s exactly how every point is earned.
-        The three highest totals at the end of the tournament win the prizes (60% / 25% /
-        10% of the pot).
+        The three highest totals at the end of the tournament win the prizes (60% / 30% /
+        10% of the entry fees).
       </p>
 
       <div className="mt-8 grid gap-6">

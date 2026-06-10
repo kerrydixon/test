@@ -96,8 +96,9 @@ export default async function AdminDashboard() {
           </form>
         </div>
         <p className="mt-3 text-xs text-slate-400">
-          “Wipe ALL data” deletes every entrant and clears all results/answers — leaving
-          only the 48 teams and 72 group fixtures. There is no undo.
+          “Wipe ALL data” deletes unlocked entrants and clears all results/answers —
+          leaving the 48 teams, 72 group fixtures and any <strong>locked</strong> entries
+          (verified real submissions are locked and survive the wipe). There is no undo.
         </p>
       </div>
     </div>
