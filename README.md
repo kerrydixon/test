@@ -50,8 +50,12 @@ also protects them from the admin "Wipe ALL data" testing tool.
 
 ## How results flow in
 
-- A **scraper** (`lib/ingestion/`) reads a public results page (Wikipedia by default,
-  override with `WIKIPEDIA_RESULTS_URL`) and maps matches/goals into the database.
+- A **scraper** (`lib/ingestion/`) reads public results pages (the Wikipedia group-stage
+  and knockout-stage articles by default; override with a comma-separated
+  `WIKIPEDIA_RESULTS_URL`). It infers each match's stage/group from the nearest section
+  heading ("Group A", "Round of 32", "Final", …) and skips the third-place play-off.
+  Scores, scorers and own goals come from the feed; **assists and penalty shoot-out
+  winners are not published in the match boxes, so those are entered in admin.**
 - It runs on a schedule via **Vercel Cron** (`vercel.json`, once daily — the Hobby-plan
   limit) and on demand via the admin **“Refresh results now”** button, which is the main
   way to update during match days (Pro plans can increase the cron frequency).

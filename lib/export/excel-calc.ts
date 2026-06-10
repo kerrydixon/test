@@ -365,14 +365,12 @@ export async function buildCalcWorkbook(): Promise<ExcelJS.Workbook> {
   entrants.forEach((e, i) => (pkHeader.getCell(2 + i).value = e.name));
   pkHeader.font = HEAD;
   let pkRow = 2;
-  let rRow = R_KO0;
   for (const { stage, count } of KO_PLAN) {
     for (let i = 0; i < count; i++) {
       const row = pk.getRow(pkRow);
       row.getCell(1).value = `${stage}-${i + 1}`;
       entrants.forEach((_, j) => (row.getCell(2 + j).fill = INPUT_FILL));
       pkRow++;
-      rRow++;
     }
   }
 
