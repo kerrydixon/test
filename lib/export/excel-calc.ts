@@ -378,12 +378,14 @@ export async function buildCalcWorkbook(): Promise<ExcelJS.Workbook> {
 
   // ---------- SCORES (all formulas) ----------
   const ws = wb.addWorksheet("SCORES", {
-    views: [{ state: "frozen", xSplit: 2, ySplit: 4 }],
+    views: [{ state: "frozen", xSplit: 7, ySplit: 4 }],
   });
+  const EC = 8; // entrant columns start at H; columns B–G hold labels/stats
   ws.getColumn(1).width = 32;
   ws.getColumn(2).width = 12;
-  entrants.forEach((_, i) => (ws.getColumn(3 + i).width = 14));
-  const scol = (i: number) => colLetter(3 + i); // SCORES entrant columns start at C
+  for (let c = 3; c <= 7; c++) ws.getColumn(c).width = 6;
+  entrants.forEach((_, i) => (ws.getColumn(EC + i).width = 14));
+  const scol = (i: number) => colLetter(EC + i);
 
   ws.getCell("A1").value = `World Cup USA 2026 — self-calculating (${n} entries)`;
   ws.getCell("A1").font = { bold: true, size: 14 };
@@ -410,6 +412,15 @@ export async function buildCalcWorkbook(): Promise<ExcelJS.Workbook> {
 
   // --- Part 1: teams ---
   sectionRow("PART 1 — Teams (auto from RESULTS)");
+  const teamHdr = ws.getRow(r);
+  teamHdr.getCell(1).value = "Team";
+  teamHdr.getCell(3).value = "W";
+  teamHdr.getCell(4).value = "D";
+  teamHdr.getCell(5).value = "L";
+  teamHdr.getCell(6).value = "GF";
+  teamHdr.getCell(7).value = "GA";
+  teamHdr.font = HEAD;
+  r++;
   const pickedTeamNames = [
     ...new Set(
       entrants.flatMap((e) => e.fantasy.teamIds.map((id) => teamById.get(id)?.name ?? "")),
@@ -419,16 +430,22 @@ export async function buildCalcWorkbook(): Promise<ExcelJS.Workbook> {
   for (const name of pickedTeamNames) {
     const row = ws.getRow(r);
     row.getCell(1).value = name;
-    // team points: wins*250 + draws*125 + GF*150 - GA*100 (all matches, all stages)
-    const wins = `SUMPRODUCT((${R("I")}=$A${r})*1)`;
-    const draws = `SUMPRODUCT(((${R("D")}=$A${r})+(${R("E")}=$A${r}))*(${R("J")}=1))`;
+    const played = `SUMPRODUCT(((${R("D")}=$A${r})+(${R("E")}=$A${r}))*(${R("F")}<>""))`;
     const gf = `SUMPRODUCT((${R("D")}=$A${r})*${R("F")})+SUMPRODUCT((${R("E")}=$A${r})*${R("G")})`;
     const ga = `SUMPRODUCT((${R("D")}=$A${r})*${R("G")})+SUMPRODUCT((${R("E")}=$A${r})*${R("F")})`;
-    row.getCell(2).value = { formula: `(${gf})&"-"&(${ga})` };
+    // Stat columns: Wins (any stage), Draws (group only), Losses, GF, GA.
+    row.getCell(3).value = { formula: `SUMPRODUCT((${R("I")}=$A${r})*1)` };
+    row.getCell(4).value = {
+      formula: `SUMPRODUCT(((${R("D")}=$A${r})+(${R("E")}=$A${r}))*(${R("J")}=1))`,
+    };
+    row.getCell(5).value = { formula: `(${played})-$C${r}-$D${r}` };
+    row.getCell(6).value = { formula: gf };
+    row.getCell(7).value = { formula: ga };
+    // Team points = wins*250 + draws*125 + GF*150 - GA*100, shown for owners only.
     entrants.forEach((_, i) => {
       const owns = `OR(ENTRIES!${ecol(i)}$${E_TEAM1}=$A${r},ENTRIES!${ecol(i)}$${E_TEAM2}=$A${r})`;
-      row.getCell(3 + i).value = {
-        formula: `IF(${owns},(${wins})*250+(${draws})*125+(${gf})*150-(${ga})*100,"")`,
+      row.getCell(EC + i).value = {
+        formula: `IF(${owns},$C${r}*250+$D${r}*125+$F${r}*150-$G${r}*100,"")`,
       };
     });
     r++;
@@ -444,7 +461,7 @@ export async function buildCalcWorkbook(): Promise<ExcelJS.Workbook> {
     row.getCell(2).value = { formula: `SCORERS!B${idx + 2}&"G "&SCORERS!C${idx + 2}&"A"` };
     entrants.forEach((_, i) => {
       const range = `ENTRIES!${ecol(i)}$${E_SCORER0}:${ecol(i)}$${E_SCORER0 + SCORER_ROWS - 1}`;
-      row.getCell(3 + i).value = {
+      row.getCell(EC + i).value = {
         formula: `IF(SUMPRODUCT((${range}=$A${r})*1)>0,SCORERS!$D$${idx + 2},"")`,
       };
     });
@@ -459,7 +476,7 @@ export async function buildCalcWorkbook(): Promise<ExcelJS.Workbook> {
     row.font = HEAD;
     entrants.forEach((_, i) => {
       const c = scol(i);
-      row.getCell(3 + i).value = {
+      row.getCell(EC + i).value = {
         formula: `SUM(${c}${teamRow0}:${c}${teamRowEnd})+SUM(${c}${scorerRow0}:${c}${scorerRowEnd})`,
       };
     });
@@ -476,7 +493,7 @@ export async function buildCalcWorkbook(): Promise<ExcelJS.Workbook> {
     entrants.forEach((_, i) => {
       const ans = `ENTRIES!${ecol(i)}$${E_Q0 + q - 1}`;
       const off = `ANSWERS!$C$${q + 1}:$E$${q + 1}`;
-      row.getCell(3 + i).value = {
+      row.getCell(EC + i).value = {
         formula: `IF(${ans}="","—",IF(COUNTIF(${off},${ans})>0,200,${ans}))`,
       };
     });
@@ -490,7 +507,7 @@ export async function buildCalcWorkbook(): Promise<ExcelJS.Workbook> {
     entrants.forEach((_, i) => {
       const c = scol(i);
       // SUMIF(=200) so numeric-looking wrong answers ("15", "8") are never summed.
-      row.getCell(3 + i).value = { formula: `SUMIF(${c}${qRow0}:${c}${r - 1},200)` };
+      row.getCell(EC + i).value = { formula: `SUMIF(${c}${qRow0}:${c}${r - 1},200)` };
     });
     r += 2;
   }
@@ -512,7 +529,7 @@ export async function buildCalcWorkbook(): Promise<ExcelJS.Workbook> {
       const p3 = `ENTRIES!${ecol(i)}$${E_GROUP0 + gi * 3 + 2}`;
       const ch = (o: string) =>
         `IF(${o}=${p1},"1",IF(${o}=${p2},"2",IF(${o}=${p3},"3","X")))`;
-      row.getCell(3 + i).value = {
+      row.getCell(EC + i).value = {
         formula: `IF(${o1}="","",IFERROR(VLOOKUP(${ch(o1)}&${ch(o2)}&${ch(o3)},MATRIX!$A$2:$B$25,2,FALSE),0))`,
       };
     });
@@ -526,7 +543,7 @@ export async function buildCalcWorkbook(): Promise<ExcelJS.Workbook> {
     row.font = HEAD;
     entrants.forEach((_, i) => {
       const c = scol(i);
-      row.getCell(3 + i).value = {
+      row.getCell(EC + i).value = {
         formula: `SUM(${c}${groupPtsRows[0]}:${c}${groupPtsRows[groupPtsRows.length - 1]})`,
       };
     });
@@ -566,7 +583,7 @@ export async function buildCalcWorkbook(): Promise<ExcelJS.Workbook> {
     entrants.forEach((_, i) => {
       const c = scol(i);
       // SUMIF(=250) so wrong picks shown as text can never leak into the total.
-      row.getCell(3 + i).value = { formula: `SUMIF(${c}${koRow0}:${c}${r - 1},250)` };
+      row.getCell(EC + i).value = { formula: `SUMIF(${c}${koRow0}:${c}${r - 1},250)` };
     });
     r += 2;
   }
@@ -581,7 +598,7 @@ export async function buildCalcWorkbook(): Promise<ExcelJS.Workbook> {
     row.getCell(2).fill = SECTION_FILL;
     entrants.forEach((_, i) => {
       const c = scol(i);
-      row.getCell(3 + i).value = {
+      row.getCell(EC + i).value = {
         formula: `${c}${part1R}+${c}${part2R}+${c}${part3R}+${c}${part4R}`,
       };
     });
