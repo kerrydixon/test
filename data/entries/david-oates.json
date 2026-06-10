@@ -1,0 +1,34 @@
+{
+  "name": "David Oates",
+  "email": null,
+  "teams": ["Spain", "Brazil"],
+  "scorers": ["Wirtz", "Mbappe", "Haaland", "Martinez", "Thiago"],
+  "part2": {
+    "1": "Draw",
+    "2": "Spain",
+    "3": "Spain",
+    "4": "Negative",
+    "5": "First",
+    "6": "3-4",
+    "7": "H",
+    "8": "13 or less",
+    "9": "8",
+    "10": "12+",
+    "11": "Yamal",
+    "12": "USA"
+  },
+  "groups": {
+    "A": ["Mexico", "Czechia", "South Korea"],
+    "B": ["Switzerland", "Canada", "Bosnia & Herzegovina"],
+    "C": ["Brazil", "Morocco", "Scotland"],
+    "D": ["USA", "Turkiye", "Paraguay"],
+    "E": ["Germany", "Ecuador", "Ivory Coast"],
+    "F": ["Netherlands", "Japan", "Sweden"],
+    "G": ["Belgium", "Egypt", "Iran"],
+    "H": ["Spain", "Uruguay", "Saudi Arabia"],
+    "I": ["France", "Norway", "Senegal"],
+    "J": ["Argentina", "Austria", "Algeria"],
+    "K": ["Portugal", "Colombia", "DR Congo"],
+    "L": ["England", "Croatia", "Ghana"]
+  }
+}

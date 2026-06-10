@@ -1,0 +1,45 @@
+{
+  "name": "Tobias Stieling",
+  "email": "tobias.stieling@gmail.com",
+  "teams": ["Belgium", "Colombia"],
+  "scorers": [
+    "Kylian Mbappé",
+    "Harry Kane",
+    "Mikel Oyarzabal",
+    "Erling Haaland",
+    "Romelu Lukaku",
+    "Luis Díaz",
+    "Lautaro Martínez",
+    "Vinicius Junior",
+    "Cristiano Ronaldo",
+    "Jérémy Doku"
+  ],
+  "part2": {
+    "1": "USA win",
+    "2": "France",
+    "3": "Spain",
+    "4": "Negative",
+    "5": "First",
+    "6": "5+",
+    "7": "I",
+    "8": "14",
+    "9": "9",
+    "10": "12+",
+    "11": "Kylian Mbappé (France)",
+    "12": "France"
+  },
+  "groups": {
+    "A": ["Mexico", "Czechia", "South Korea"],
+    "B": ["Switzerland", "Canada", "Bosnia & Herzegovina"],
+    "C": ["Brazil", "Morocco", "Scotland"],
+    "D": ["USA", "Turkiye", "Paraguay"],
+    "E": ["Germany", "Ecuador", "Ivory Coast"],
+    "F": ["Netherlands", "Japan", "Sweden"],
+    "G": ["Belgium", "Iran", "Egypt"],
+    "H": ["Spain", "Uruguay", "Saudi Arabia"],
+    "I": ["France", "Norway", "Senegal"],
+    "J": ["Argentina", "Austria", "Algeria"],
+    "K": ["Colombia", "Portugal", "Uzbekistan"],
+    "L": ["England", "Croatia", "Ghana"]
+  }
+}

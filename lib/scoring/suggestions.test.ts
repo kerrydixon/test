@@ -37,6 +37,24 @@ describe("name normalisation", () => {
   it("normalises to a comparable key", () => {
     expect(normaliseName("Vinícius Jr.")).toBe(normaliseName("vinicius jr"));
   });
+
+  it("full-name picks match surname-only feed names (and vice versa)", () => {
+    const match: SuggestionMatch = base({
+      id: "m",
+      homeTeamId: "A",
+      awayTeamId: "B",
+      status: "FINISHED",
+      homeGoals: 2,
+      awayGoals: 0,
+      goals: [goal("A", "Mbappé"), goal("A", "Lautaro Martínez", 50)],
+    });
+    const r = scorePart1(
+      { teamIds: ["X", "Y"], scorerNames: ["Kylian Mbappé", "Martinez"] },
+      [match],
+    );
+    expect(r.perScorer.find((s) => s.name === "Kylian Mbappé")!.goals).toBe(1);
+    expect(r.perScorer.find((s) => s.name === "Martinez")!.goals).toBe(1);
+  });
 });
 
 function goal(teamId: string, scorerName: string, minute = 10, extra: Partial<SuggestionMatch["goals"][0]> = {}) {

@@ -8,7 +8,7 @@
 // Shoot-out goals never count; extra-time goals do.
 
 import type { FantasyEntry, ScoringMatch } from "./types";
-import { normaliseName } from "./names";
+import { normaliseName, playerMatches } from "./names";
 import {
   countedGoals,
   goalsAgainstTeam,
@@ -92,10 +92,17 @@ export function scorePart1(
     }
   }
 
+  const sumMatching = (tally: Map<string, number>, pick: string) => {
+    let sum = 0;
+    for (const [eventName, count] of tally) {
+      if (playerMatches(pick, eventName)) sum += count;
+    }
+    return sum;
+  };
+
   const perScorer = entry.scorerNames.map((name) => {
-    const key = normaliseName(name);
-    const goals = goalTally.get(key) ?? 0;
-    const assists = assistTally.get(key) ?? 0;
+    const goals = sumMatching(goalTally, name);
+    const assists = sumMatching(assistTally, name);
     return {
       name,
       goals,

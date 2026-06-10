@@ -18,7 +18,7 @@ import {
   PART2_POINTS_PER_QUESTION,
   PART4_POINTS_PER_MATCH,
 } from "@/lib/scoring";
-import { normaliseName } from "@/lib/scoring/names";
+import { normaliseName, playerMatches } from "@/lib/scoring/names";
 import { PART2_QUESTIONS } from "@/lib/part2-questions";
 import { GROUP_CODES } from "@/lib/teams";
 
@@ -178,10 +178,21 @@ export async function buildExportWorkbook(): Promise<ExcelJS.Workbook> {
       if (!scorerDisplay.has(k)) scorerDisplay.set(k, s);
     }
   }
+  const sumMatching = (tally: Map<string, number>, pick: string) => {
+    let sum = 0;
+    for (const [eventName, count] of tally) {
+      if (playerMatches(pick, eventName)) sum += count;
+    }
+    return sum;
+  };
   for (const [key, display] of [...scorerDisplay.entries()].sort((a, b) =>
     a[1].localeCompare(b[1]),
   )) {
-    const row = ws.addRow([display, goalTally.get(key) ?? 0, assistTally.get(key) ?? 0]);
+    const row = ws.addRow([
+      display,
+      sumMatching(goalTally, display),
+      sumMatching(assistTally, display),
+    ]);
     entrants.forEach((e, i) => {
       if (!e.fantasy.scorerNames.some((s) => normaliseName(s) === key)) return;
       const breakdown = scoreById
