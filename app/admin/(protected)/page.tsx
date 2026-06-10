@@ -26,7 +26,10 @@ export default async function AdminDashboard() {
         <h1 className="text-2xl font-bold text-slate-900">Organiser dashboard</h1>
         <div className="flex flex-wrap gap-3">
           <a href="/api/export" className="btn-secondary">
-            <Download className="h-4 w-4" /> Download Excel
+            <Download className="h-4 w-4" /> Excel snapshot
+          </a>
+          <a href="/api/export?calc=1" className="btn-secondary">
+            <Download className="h-4 w-4" /> Excel calculator
           </a>
           <form action={runSync}>
             <button className="btn-primary">
