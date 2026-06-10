@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FlaskConical, RefreshCw, Trash2 } from "lucide-react";
+import { Download, FlaskConical, RefreshCw, Trash2 } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { runSync, simulateGroupStageAction, wipeAllDataAction } from "../actions";
 
@@ -24,11 +24,16 @@ export default async function AdminDashboard() {
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-bold text-slate-900">Organiser dashboard</h1>
-        <form action={runSync}>
-          <button className="btn-primary">
-            <RefreshCw className="h-4 w-4" /> Refresh results now
-          </button>
-        </form>
+        <div className="flex flex-wrap gap-3">
+          <a href="/api/export" className="btn-secondary">
+            <Download className="h-4 w-4" /> Download Excel
+          </a>
+          <form action={runSync}>
+            <button className="btn-primary">
+              <RefreshCw className="h-4 w-4" /> Refresh results now
+            </button>
+          </form>
+        </div>
       </div>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
