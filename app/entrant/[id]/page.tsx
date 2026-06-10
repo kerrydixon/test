@@ -17,7 +17,10 @@ export default async function EntrantPage({
     getEntrantScore(id),
     prisma.entrant.findUnique({
       where: { id },
-      include: { part2Answers: true },
+      include: {
+        part2Answers: true,
+        groupPredictions: { orderBy: { groupCode: "asc" } },
+      },
     }),
     prisma.team.findMany(),
   ]);
@@ -103,17 +106,33 @@ export default async function EntrantPage({
           <h2 className="font-bold text-slate-900">
             Group placings <span className="text-slate-400">· {score.part3.total} pts</span>
           </h2>
-          {score.part3.groups.length === 0 ? (
-            <p className="mt-3 text-sm text-slate-400">Scored once groups are decided.</p>
+          {entrant.groupPredictions.length === 0 ? (
+            <p className="mt-3 text-sm text-slate-400">No group predictions submitted.</p>
           ) : (
-            <div className="mt-3 grid grid-cols-3 gap-2 text-sm sm:grid-cols-4">
-              {score.part3.groups.map((g) => (
-                <div key={g.groupCode} className="rounded-lg bg-slate-50 p-2 text-center">
-                  <div className="font-semibold text-slate-700">Group {g.groupCode}</div>
-                  <div className="text-xs text-slate-400">{g.code}</div>
-                  <div className="font-bold tabular-nums text-emerald-600">{g.points}</div>
-                </div>
-              ))}
+            <div className="mt-3 grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
+              {entrant.groupPredictions.map((p) => {
+                const scored = score.part3.groups.find((g) => g.groupCode === p.groupCode);
+                return (
+                  <div key={p.groupCode} className="rounded-lg bg-slate-50 p-2.5">
+                    <div className="flex items-center justify-between">
+                      <span className="font-semibold text-slate-700">Group {p.groupCode}</span>
+                      {scored ? (
+                        <span className="text-xs">
+                          <span className="font-mono text-slate-400">{scored.code}</span>{" "}
+                          <span className="font-bold tabular-nums text-emerald-600">{scored.points}</span>
+                        </span>
+                      ) : (
+                        <span className="text-xs text-slate-300">pending</span>
+                      )}
+                    </div>
+                    <ol className="mt-1 space-y-0.5 text-slate-600">
+                      <li>1. {teamName.get(p.firstTeamId) ?? "?"}</li>
+                      <li>2. {teamName.get(p.secondTeamId) ?? "?"}</li>
+                      <li>3. {teamName.get(p.thirdTeamId) ?? "?"}</li>
+                    </ol>
+                  </div>
+                );
+              })}
             </div>
           )}
         </section>
