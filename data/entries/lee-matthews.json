@@ -1,30 +1,31 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Lee Matthews",
   "email": null,
   "teams": [
     "Spain",
-    "Brazil"
+    "Germany"
   ],
   "scorers": [
+    "Bellingham",
+    "Lukaku",
     "Kane",
-    "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
-    "Yamal"
+    "Messi",
+    "Olise",
+    "Watkins"
   ],
   "part2": {
-    "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "1": "Paraguay win",
+    "2": "England",
+    "3": "Spain",
     "4": "Negative",
     "5": "First",
-    "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
+    "6": "3-4",
+    "7": "J",
+    "8": "13 or less",
+    "9": "7 or less",
     "10": "12+",
-    "11": "Mbappe",
-    "12": "Spain"
+    "11": "Kane",
+    "12": "England"
   },
   "groups": {
     "A": [
@@ -38,18 +39,18 @@
       "Bosnia & Herzegovina"
     ],
     "C": [
+      "Scotland",
       "Brazil",
-      "Morocco",
-      "Scotland"
+      "Morocco"
     ],
     "D": [
-      "USA",
       "Turkiye",
+      "Australia",
       "Paraguay"
     ],
     "E": [
-      "Germany",
       "Ecuador",
+      "Germany",
       "Ivory Coast"
     ],
     "F": [
@@ -59,13 +60,13 @@
     ],
     "G": [
       "Belgium",
-      "Egypt",
-      "Iran"
+      "New Zealand",
+      "Egypt"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
@@ -73,19 +74,19 @@
       "Senegal"
     ],
     "J": [
-      "Argentina",
       "Austria",
+      "Argentina",
       "Algeria"
     ],
     "K": [
       "Portugal",
-      "Colombia",
-      "DR Congo"
+      "DR Congo",
+      "Colombia"
     ],
     "L": [
       "England",
-      "Croatia",
-      "Ghana"
+      "Ghana",
+      "Croatia"
     ]
   }
 }

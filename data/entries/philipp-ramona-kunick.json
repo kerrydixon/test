@@ -1,30 +1,30 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Philipp &Ramona Kunick",
   "email": null,
   "teams": [
-    "Spain",
+    "France",
     "Brazil"
   ],
   "scorers": [
+    "Alvarez",
+    "Haaland",
     "Kane",
     "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
-    "Yamal"
+    "Vinicius Jr."
   ],
   "part2": {
     "1": "USA win",
     "2": "Argentina",
-    "3": "Argentina",
-    "4": "Negative",
+    "3": "France",
+    "4": "+1 or +2",
     "5": "First",
     "6": "5+",
-    "7": "C",
+    "7": "I",
     "8": "15",
-    "9": "8",
+    "9": "9",
     "10": "12+",
     "11": "Mbappe",
-    "12": "Spain"
+    "12": "France"
   },
   "groups": {
     "A": [
@@ -44,17 +44,17 @@
     ],
     "D": [
       "USA",
-      "Turkiye",
-      "Paraguay"
+      "Paraguay",
+      "Turkiye"
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Ecuador"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
@@ -65,12 +65,12 @@
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
-      "Norway",
-      "Senegal"
+      "Senegal",
+      "Norway"
     ],
     "J": [
       "Argentina",

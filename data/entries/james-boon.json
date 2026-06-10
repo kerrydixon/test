@@ -1,35 +1,35 @@
 {
-  "name": "Kerry Dixon",
+  "name": "James Boon",
   "email": null,
   "teams": [
-    "Spain",
+    "France",
     "Brazil"
   ],
   "scorers": [
+    "Alvarez",
+    "Dembele",
     "Kane",
-    "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
+    "Olise",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "2": "France",
+    "3": "Spain",
     "4": "Negative",
     "5": "First",
     "6": "5+",
     "7": "C",
-    "8": "15",
-    "9": "8",
+    "8": "13 or less",
+    "9": "7 or less",
     "10": "12+",
-    "11": "Mbappe",
+    "11": "Dembele",
     "12": "Spain"
   },
   "groups": {
     "A": [
-      "Mexico",
       "South Korea",
+      "Mexico",
       "Czechia"
     ],
     "B": [
@@ -43,14 +43,14 @@
       "Scotland"
     ],
     "D": [
-      "USA",
       "Turkiye",
+      "USA",
       "Paraguay"
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Ecuador"
     ],
     "F": [
       "Japan",
@@ -58,14 +58,14 @@
       "Sweden"
     ],
     "G": [
-      "Belgium",
       "Egypt",
+      "Belgium",
       "Iran"
     ],
     "H": [
       "Spain",
-      "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia",
+      "Uruguay"
     ],
     "I": [
       "France",
@@ -78,8 +78,8 @@
       "Algeria"
     ],
     "K": [
-      "Portugal",
       "Colombia",
+      "Portugal",
       "DR Congo"
     ],
     "L": [

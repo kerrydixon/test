@@ -1,41 +1,42 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Marco Lorenz",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "Argentina",
+    "Germany"
   ],
   "scorers": [
+    "Dembele",
     "Kane",
-    "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
+    "Messi",
+    "Undav",
+    "Woltemade",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "2": "Spain",
+    "3": "France",
     "4": "Negative",
-    "5": "First",
-    "6": "5+",
+    "5": "Second",
+    "6": "3-4",
     "7": "C",
-    "8": "15",
+    "8": "14",
     "9": "8",
     "10": "12+",
-    "11": "Mbappe",
-    "12": "Spain"
+    "11": "Kane",
+    "12": "Argentina"
   },
   "groups": {
     "A": [
       "Mexico",
-      "South Korea",
-      "Czechia"
+      "Czechia",
+      "South Africa"
     ],
     "B": [
       "Switzerland",
       "Canada",
-      "Bosnia & Herzegovina"
+      "Qatar"
     ],
     "C": [
       "Brazil",
@@ -44,8 +45,8 @@
     ],
     "D": [
       "USA",
-      "Turkiye",
-      "Paraguay"
+      "Australia",
+      "Turkiye"
     ],
     "E": [
       "Germany",
@@ -53,24 +54,24 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
+      "Sweden",
       "Netherlands",
-      "Sweden"
+      "Tunisia"
     ],
     "G": [
       "Belgium",
       "Egypt",
-      "Iran"
+      "New Zealand"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
-      "Norway",
-      "Senegal"
+      "Senegal",
+      "Norway"
     ],
     "J": [
       "Argentina",
@@ -78,8 +79,8 @@
       "Algeria"
     ],
     "K": [
-      "Portugal",
       "Colombia",
+      "Portugal",
       "DR Congo"
     ],
     "L": [

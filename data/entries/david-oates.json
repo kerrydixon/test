@@ -1,8 +1,17 @@
 {
   "name": "David Oates",
   "email": null,
-  "teams": ["Spain", "Brazil"],
-  "scorers": ["Wirtz", "Mbappe", "Haaland", "Martinez", "Thiago"],
+  "teams": [
+    "Spain",
+    "Brazil"
+  ],
+  "scorers": [
+    "Haaland",
+    "Martinez",
+    "Mbappe",
+    "Thiago",
+    "Wirtz"
+  ],
   "part2": {
     "1": "Draw",
     "2": "Spain",
@@ -18,17 +27,65 @@
     "12": "USA"
   },
   "groups": {
-    "A": ["Mexico", "Czechia", "South Korea"],
-    "B": ["Switzerland", "Canada", "Bosnia & Herzegovina"],
-    "C": ["Brazil", "Morocco", "Scotland"],
-    "D": ["USA", "Turkiye", "Paraguay"],
-    "E": ["Germany", "Ecuador", "Ivory Coast"],
-    "F": ["Netherlands", "Japan", "Sweden"],
-    "G": ["Belgium", "Egypt", "Iran"],
-    "H": ["Spain", "Uruguay", "Saudi Arabia"],
-    "I": ["France", "Norway", "Senegal"],
-    "J": ["Argentina", "Austria", "Algeria"],
-    "K": ["Portugal", "Colombia", "DR Congo"],
-    "L": ["England", "Croatia", "Ghana"]
+    "A": [
+      "Mexico",
+      "Czechia",
+      "South Korea"
+    ],
+    "B": [
+      "Switzerland",
+      "Canada",
+      "Bosnia & Herzegovina"
+    ],
+    "C": [
+      "Brazil",
+      "Morocco",
+      "Scotland"
+    ],
+    "D": [
+      "USA",
+      "Turkiye",
+      "Paraguay"
+    ],
+    "E": [
+      "Germany",
+      "Ecuador",
+      "Ivory Coast"
+    ],
+    "F": [
+      "Netherlands",
+      "Japan",
+      "Sweden"
+    ],
+    "G": [
+      "Belgium",
+      "Egypt",
+      "Iran"
+    ],
+    "H": [
+      "Spain",
+      "Uruguay",
+      "Saudi Arabia"
+    ],
+    "I": [
+      "France",
+      "Norway",
+      "Senegal"
+    ],
+    "J": [
+      "Argentina",
+      "Austria",
+      "Algeria"
+    ],
+    "K": [
+      "Portugal",
+      "Colombia",
+      "DR Congo"
+    ],
+    "L": [
+      "England",
+      "Croatia",
+      "Ghana"
+    ]
   }
 }

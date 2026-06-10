@@ -1,30 +1,30 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Eddie Mitchell",
   "email": null,
   "teams": [
-    "Spain",
+    "France",
     "Brazil"
   ],
   "scorers": [
+    "Haaland",
     "Kane",
     "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
-    "Yamal"
+    "Messi",
+    "Vinicius Jr."
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
-    "4": "Negative",
+    "2": "Spain",
+    "3": "France",
+    "4": "+1 or +2",
     "5": "First",
-    "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
-    "10": "12+",
+    "6": "3-4",
+    "7": "I",
+    "8": "13 or less",
+    "9": "10 or more",
+    "10": "8-11",
     "11": "Mbappe",
-    "12": "Spain"
+    "12": "France"
   },
   "groups": {
     "A": [
@@ -33,8 +33,8 @@
       "Czechia"
     ],
     "B": [
-      "Switzerland",
       "Canada",
+      "Switzerland",
       "Bosnia & Herzegovina"
     ],
     "C": [
@@ -49,23 +49,23 @@
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Curacao"
     ],
     "F": [
-      "Japan",
       "Netherlands",
-      "Sweden"
+      "Sweden",
+      "Tunisia"
     ],
     "G": [
-      "Belgium",
+      "New Zealand",
       "Egypt",
-      "Iran"
+      "Belgium"
     ],
     "H": [
       "Spain",
-      "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia",
+      "Uruguay"
     ],
     "I": [
       "France",
@@ -75,7 +75,7 @@
     "J": [
       "Argentina",
       "Austria",
-      "Algeria"
+      "Jordan"
     ],
     "K": [
       "Portugal",
@@ -85,7 +85,7 @@
     "L": [
       "England",
       "Croatia",
-      "Ghana"
+      "Panama"
     ]
   }
 }

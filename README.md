@@ -39,11 +39,13 @@ npm run build       # production build
 
 ## How entries flow in
 
-Players can self-submit at `/submit`, **or** entries received offline (e.g. a filled
-Word document) are transcribed into a JSON file in `data/entries/` (see
-`kerry-dixon.json` for the shape). Every deploy validates and imports any new files —
-import is idempotent (matched by entrant name, case-insensitive), so existing entries
-are never duplicated or overwritten. Imported entries are created **locked**, which
+Players can self-submit at `/submit`, **or** entries received offline (Word docs,
+emails, spreadsheets) are transcribed into JSON files in `data/entries/` (one per
+entrant; see any file for the shape). `data/entries/` is the **single source of truth**
+for transcribed entries: every deploy validates the files and syncs the database to
+match them — creating new entrants, refreshing changed ones in place (stable ids), and
+removing locked entrants whose file no longer exists. Self-submitted and demo entries
+(which are unlocked) are never touched. Transcribed entries are created **locked**, which
 also protects them from the admin "Wipe ALL data" testing tool.
 
 ## How results flow in

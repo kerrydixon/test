@@ -1,71 +1,72 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Sandra Clark",
   "email": null,
   "teams": [
     "Spain",
-    "Brazil"
+    "Germany"
   ],
   "scorers": [
+    "Cherki",
+    "Gyokeres",
+    "Haaland",
+    "Havertz",
     "Kane",
-    "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
-    "Yamal"
+    "Torres"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
-    "4": "Negative",
+    "2": "Spain",
+    "3": "England",
+    "4": "+1 or +2",
     "5": "First",
     "6": "5+",
-    "7": "C",
-    "8": "15",
+    "7": "L",
+    "8": "14",
     "9": "8",
-    "10": "12+",
-    "11": "Mbappe",
+    "10": "8-11",
+    "11": "Torres",
     "12": "Spain"
   },
   "groups": {
     "A": [
       "Mexico",
-      "South Korea",
-      "Czechia"
+      "Czechia",
+      "South Korea"
     ],
     "B": [
-      "Switzerland",
       "Canada",
-      "Bosnia & Herzegovina"
+      "Switzerland",
+      "Qatar"
     ],
     "C": [
       "Brazil",
-      "Morocco",
-      "Scotland"
+      "Scotland",
+      "Morocco"
     ],
     "D": [
       "USA",
       "Turkiye",
-      "Paraguay"
+      "Australia"
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Ecuador"
     ],
     "F": [
-      "Japan",
+      "Sweden",
       "Netherlands",
-      "Sweden"
+      "Japan"
     ],
     "G": [
       "Belgium",
-      "Egypt",
-      "Iran"
+      "New Zealand",
+      "Egypt"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
@@ -74,8 +75,8 @@
     ],
     "J": [
       "Argentina",
-      "Austria",
-      "Algeria"
+      "Algeria",
+      "Austria"
     ],
     "K": [
       "Portugal",

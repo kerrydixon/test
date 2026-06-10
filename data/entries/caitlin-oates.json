@@ -1,29 +1,30 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Caitlin Oates",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "France",
+    "Germany"
   ],
   "scorers": [
+    "Dembele",
+    "Haaland",
     "Kane",
     "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
-    "Yamal"
+    "Messi",
+    "Oyarzabal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "2": "Spain",
+    "3": "Spain",
     "4": "Negative",
     "5": "First",
-    "6": "5+",
+    "6": "3-4",
     "7": "C",
     "8": "15",
     "9": "8",
-    "10": "12+",
-    "11": "Mbappe",
+    "10": "8-11",
+    "11": "Yamal",
     "12": "Spain"
   },
   "groups": {
@@ -33,8 +34,8 @@
       "Czechia"
     ],
     "B": [
-      "Switzerland",
       "Canada",
+      "Switzerland",
       "Bosnia & Herzegovina"
     ],
     "C": [
@@ -49,18 +50,18 @@
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Ecuador"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
       "Belgium",
-      "Egypt",
-      "Iran"
+      "Iran",
+      "Egypt"
     ],
     "H": [
       "Spain",
@@ -78,8 +79,8 @@
       "Algeria"
     ],
     "K": [
-      "Portugal",
       "Colombia",
+      "Portugal",
       "DR Congo"
     ],
     "L": [

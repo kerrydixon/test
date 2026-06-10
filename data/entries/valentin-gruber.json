@@ -1,41 +1,46 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Valentin Gruber",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "France",
+    "Switzerland"
   ],
   "scorers": [
+    "Dembele",
+    "Diaz",
     "Kane",
+    "Martinez",
     "Mbappe",
-    "Oyarzabal",
+    "Nunez",
+    "Ronaldo",
     "Vinicius Jr.",
+    "Wirtz",
     "Yamal"
   ],
   "part2": {
-    "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "1": "Paraguay win",
+    "2": "England",
+    "3": "Spain",
     "4": "Negative",
-    "5": "First",
+    "5": "Second",
     "6": "5+",
-    "7": "C",
-    "8": "15",
+    "7": "H",
+    "8": "13 or less",
     "9": "8",
-    "10": "12+",
-    "11": "Mbappe",
-    "12": "Spain"
+    "10": "8-11",
+    "11": "Kane",
+    "12": "France"
   },
   "groups": {
     "A": [
       "Mexico",
       "South Korea",
-      "Czechia"
+      "South Africa"
     ],
     "B": [
       "Switzerland",
-      "Canada",
-      "Bosnia & Herzegovina"
+      "Bosnia & Herzegovina",
+      "Canada"
     ],
     "C": [
       "Brazil",
@@ -43,34 +48,34 @@
       "Scotland"
     ],
     "D": [
-      "USA",
       "Turkiye",
-      "Paraguay"
+      "Paraguay",
+      "USA"
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Ecuador"
     ],
     "F": [
       "Japan",
       "Netherlands",
-      "Sweden"
+      "Tunisia"
     ],
     "G": [
-      "Belgium",
       "Egypt",
+      "Belgium",
       "Iran"
     ],
     "H": [
       "Spain",
-      "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia",
+      "Uruguay"
     ],
     "I": [
       "France",
-      "Norway",
-      "Senegal"
+      "Senegal",
+      "Norway"
     ],
     "J": [
       "Argentina",
@@ -80,11 +85,11 @@
     "K": [
       "Portugal",
       "Colombia",
-      "DR Congo"
+      "Uzbekistan"
     ],
     "L": [
-      "England",
       "Croatia",
+      "England",
       "Ghana"
     ]
   }

@@ -1,27 +1,32 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Lena Hux",
   "email": null,
   "teams": [
     "Spain",
-    "Brazil"
+    "Norway"
   ],
   "scorers": [
+    "Haaland",
+    "Havertz",
     "Kane",
     "Mbappe",
+    "Messi",
+    "Olise",
     "Oyarzabal",
-    "Vinicius Jr.",
+    "Ronaldo",
+    "Sorloth",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "2": "Spain",
+    "3": "Spain",
     "4": "Negative",
     "5": "First",
-    "6": "5+",
-    "7": "C",
+    "6": "3-4",
+    "7": "H",
     "8": "15",
-    "9": "8",
+    "9": "9",
     "10": "12+",
     "11": "Mbappe",
     "12": "Spain"
@@ -43,8 +48,8 @@
       "Scotland"
     ],
     "D": [
-      "USA",
       "Turkiye",
+      "USA",
       "Paraguay"
     ],
     "E": [
@@ -53,8 +58,8 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
@@ -65,7 +70,7 @@
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
@@ -80,7 +85,7 @@
     "K": [
       "Portugal",
       "Colombia",
-      "DR Congo"
+      "Uzbekistan"
     ],
     "L": [
       "England",

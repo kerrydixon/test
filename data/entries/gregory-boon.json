@@ -1,41 +1,44 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Gregory Boon",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "Brazil",
+    "Germany"
   ],
   "scorers": [
-    "Kane",
+    "Doue",
+    "Haaland",
     "Mbappe",
-    "Oyarzabal",
+    "Messi",
+    "Neymar",
+    "Ronaldo",
     "Vinicius Jr.",
     "Yamal"
   ],
   "part2": {
-    "1": "USA win",
-    "2": "Argentina",
+    "1": "Paraguay win",
+    "2": "France",
     "3": "Argentina",
     "4": "Negative",
     "5": "First",
-    "6": "5+",
+    "6": "3-4",
     "7": "C",
-    "8": "15",
-    "9": "8",
-    "10": "12+",
-    "11": "Mbappe",
-    "12": "Spain"
+    "8": "13 or less",
+    "9": "7 or less",
+    "10": "8-11",
+    "11": "Messi",
+    "12": "France"
   },
   "groups": {
     "A": [
+      "South Africa",
       "Mexico",
-      "South Korea",
       "Czechia"
     ],
     "B": [
       "Switzerland",
       "Canada",
-      "Bosnia & Herzegovina"
+      "Qatar"
     ],
     "C": [
       "Brazil",
@@ -43,19 +46,19 @@
       "Scotland"
     ],
     "D": [
-      "USA",
       "Turkiye",
-      "Paraguay"
+      "USA",
+      "Australia"
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Ecuador"
     ],
     "F": [
-      "Japan",
       "Netherlands",
-      "Sweden"
+      "Japan",
+      "Tunisia"
     ],
     "G": [
       "Belgium",
@@ -64,18 +67,18 @@
     ],
     "H": [
       "Spain",
-      "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia",
+      "Uruguay"
     ],
     "I": [
       "France",
-      "Norway",
-      "Senegal"
+      "Senegal",
+      "Norway"
     ],
     "J": [
       "Argentina",
-      "Austria",
-      "Algeria"
+      "Algeria",
+      "Austria"
     ],
     "K": [
       "Portugal",

@@ -1,30 +1,35 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Sean Sagar",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "France",
+    "Turkiye"
   ],
   "scorers": [
+    "Alvarez",
+    "Dembele",
+    "Diaz",
+    "Fernandes",
+    "Guler",
+    "Haaland",
     "Kane",
     "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
-    "Yamal"
+    "Olise",
+    "Oyarzabal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
-    "4": "Negative",
+    "2": "Spain",
+    "3": "Spain",
+    "4": "Zero",
     "5": "First",
-    "6": "5+",
+    "6": "3-4",
     "7": "C",
-    "8": "15",
-    "9": "8",
+    "8": "16",
+    "9": "10 or more",
     "10": "12+",
-    "11": "Mbappe",
-    "12": "Spain"
+    "11": "Olise",
+    "12": "France"
   },
   "groups": {
     "A": [
@@ -34,8 +39,8 @@
     ],
     "B": [
       "Switzerland",
-      "Canada",
-      "Bosnia & Herzegovina"
+      "Bosnia & Herzegovina",
+      "Canada"
     ],
     "C": [
       "Brazil",
@@ -43,8 +48,8 @@
       "Scotland"
     ],
     "D": [
-      "USA",
       "Turkiye",
+      "USA",
       "Paraguay"
     ],
     "E": [
@@ -53,19 +58,19 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
       "Belgium",
       "Egypt",
-      "Iran"
+      "New Zealand"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",

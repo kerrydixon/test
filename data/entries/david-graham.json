@@ -1,27 +1,27 @@
 {
-  "name": "Kerry Dixon",
+  "name": "David Graham",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "France",
+    "Portugal"
   ],
   "scorers": [
     "Kane",
     "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
+    "Messi",
+    "Raphinha",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
     "2": "Argentina",
-    "3": "Argentina",
-    "4": "Negative",
+    "3": "Spain",
+    "4": "+1 or +2",
     "5": "First",
     "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
+    "7": "H",
+    "8": "13 or less",
+    "9": "7 or less",
     "10": "12+",
     "11": "Mbappe",
     "12": "Spain"
@@ -33,19 +33,19 @@
       "Czechia"
     ],
     "B": [
-      "Switzerland",
       "Canada",
+      "Switzerland",
       "Bosnia & Herzegovina"
     ],
     "C": [
       "Brazil",
-      "Morocco",
-      "Scotland"
+      "Scotland",
+      "Morocco"
     ],
     "D": [
       "USA",
       "Turkiye",
-      "Paraguay"
+      "Australia"
     ],
     "E": [
       "Germany",
@@ -53,29 +53,29 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
       "Belgium",
-      "Egypt",
-      "Iran"
+      "Iran",
+      "Egypt"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
-      "Norway",
-      "Senegal"
+      "Senegal",
+      "Norway"
     ],
     "J": [
       "Argentina",
-      "Austria",
-      "Algeria"
+      "Algeria",
+      "Austria"
     ],
     "K": [
       "Portugal",

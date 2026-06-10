@@ -1,5 +1,5 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Craig Cannings",
   "email": null,
   "teams": [
     "Spain",
@@ -8,34 +8,34 @@
   "scorers": [
     "Kane",
     "Mbappe",
-    "Oyarzabal",
+    "Messi",
     "Vinicius Jr.",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
-    "4": "Negative",
+    "2": "Spain",
+    "3": "Spain",
+    "4": "+1 or +2",
     "5": "First",
-    "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
-    "10": "12+",
+    "6": "3-4",
+    "7": "I",
+    "8": "14",
+    "9": "9",
+    "10": "8-11",
     "11": "Mbappe",
     "12": "Spain"
   },
   "groups": {
     "A": [
       "Mexico",
-      "South Korea",
-      "Czechia"
+      "Czechia",
+      "South Africa"
     ],
     "B": [
       "Switzerland",
-      "Canada",
-      "Bosnia & Herzegovina"
+      "Bosnia & Herzegovina",
+      "Canada"
     ],
     "C": [
       "Brazil",
@@ -43,8 +43,8 @@
       "Scotland"
     ],
     "D": [
-      "USA",
       "Turkiye",
+      "USA",
       "Paraguay"
     ],
     "E": [
@@ -53,8 +53,8 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
@@ -65,7 +65,7 @@
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",

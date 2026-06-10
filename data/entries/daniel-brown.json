@@ -1,26 +1,26 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Daniel Brown",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "France",
+    "Portugal"
   ],
   "scorers": [
+    "Alvarez",
+    "Dembele",
+    "Fernandes",
     "Kane",
-    "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
-    "Yamal"
+    "Mbappe"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "2": "Spain",
+    "3": "Spain",
     "4": "Negative",
     "5": "First",
     "6": "5+",
-    "7": "C",
-    "8": "15",
+    "7": "I",
+    "8": "14",
     "9": "8",
     "10": "12+",
     "11": "Mbappe",
@@ -43,18 +43,18 @@
       "Scotland"
     ],
     "D": [
-      "USA",
       "Turkiye",
+      "USA",
       "Paraguay"
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Ecuador"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
@@ -65,12 +65,12 @@
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
-      "Norway",
-      "Senegal"
+      "Senegal",
+      "Norway"
     ],
     "J": [
       "Argentina",
@@ -80,7 +80,7 @@
     "K": [
       "Portugal",
       "Colombia",
-      "DR Congo"
+      "Uzbekistan"
     ],
     "L": [
       "England",

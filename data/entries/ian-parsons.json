@@ -1,29 +1,34 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Ian Parsons",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "Belgium",
+    "Mexico"
   ],
   "scorers": [
+    "Alvarez",
+    "Dembele",
     "Kane",
     "Mbappe",
-    "Oyarzabal",
+    "Messi",
+    "Olise",
+    "Raphinha",
+    "Torres",
     "Vinicius Jr.",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "2": "England",
+    "3": "Spain",
     "4": "Negative",
     "5": "First",
     "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
-    "10": "12+",
-    "11": "Mbappe",
+    "7": "E",
+    "8": "13 or less",
+    "9": "7 or less",
+    "10": "7 or less",
+    "11": "Yamal",
     "12": "Spain"
   },
   "groups": {
@@ -35,7 +40,7 @@
     "B": [
       "Switzerland",
       "Canada",
-      "Bosnia & Herzegovina"
+      "Qatar"
     ],
     "C": [
       "Brazil",
@@ -44,7 +49,7 @@
     ],
     "D": [
       "USA",
-      "Turkiye",
+      "Australia",
       "Paraguay"
     ],
     "E": [
@@ -53,24 +58,24 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
       "Belgium",
-      "Egypt",
-      "Iran"
+      "Iran",
+      "Egypt"
     ],
     "H": [
       "Spain",
-      "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia",
+      "Uruguay"
     ],
     "I": [
       "France",
-      "Norway",
-      "Senegal"
+      "Senegal",
+      "Norway"
     ],
     "J": [
       "Argentina",

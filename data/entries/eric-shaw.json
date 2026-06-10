@@ -1,30 +1,31 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Eric Shaw",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "England",
+    "Germany"
   ],
   "scorers": [
+    "Haaland",
     "Kane",
     "Mbappe",
+    "Messi",
     "Oyarzabal",
-    "Vinicius Jr.",
-    "Yamal"
+    "Raphinha"
   ],
   "part2": {
-    "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "1": "Paraguay win",
+    "2": "Spain",
+    "3": "England",
     "4": "Negative",
-    "5": "First",
+    "5": "Second",
     "6": "5+",
-    "7": "C",
-    "8": "15",
+    "7": "H",
+    "8": "14",
     "9": "8",
     "10": "12+",
-    "11": "Mbappe",
-    "12": "Spain"
+    "11": "Kane",
+    "12": "France"
   },
   "groups": {
     "A": [
@@ -33,9 +34,9 @@
       "Czechia"
     ],
     "B": [
-      "Switzerland",
       "Canada",
-      "Bosnia & Herzegovina"
+      "Qatar",
+      "Switzerland"
     ],
     "C": [
       "Brazil",
@@ -43,9 +44,9 @@
       "Scotland"
     ],
     "D": [
-      "USA",
       "Turkiye",
-      "Paraguay"
+      "Paraguay",
+      "Australia"
     ],
     "E": [
       "Germany",
@@ -53,14 +54,14 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
-      "Sweden"
+      "Japan",
+      "Tunisia"
     ],
     "G": [
       "Belgium",
-      "Egypt",
-      "Iran"
+      "New Zealand",
+      "Egypt"
     ],
     "H": [
       "Spain",
@@ -70,7 +71,7 @@
     "I": [
       "France",
       "Norway",
-      "Senegal"
+      "Iraq"
     ],
     "J": [
       "Argentina",
@@ -80,7 +81,7 @@
     "K": [
       "Portugal",
       "Colombia",
-      "DR Congo"
+      "Uzbekistan"
     ],
     "L": [
       "England",

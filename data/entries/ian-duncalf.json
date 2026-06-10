@@ -1,30 +1,31 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Ian Duncalf",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "France",
+    "Germany"
   ],
   "scorers": [
-    "Kane",
+    "Fernandes",
+    "Haaland",
+    "Lukaku",
     "Mbappe",
-    "Oyarzabal",
     "Vinicius Jr.",
-    "Yamal"
+    "Wirtz"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
+    "2": "England",
     "3": "Argentina",
     "4": "Negative",
     "5": "First",
     "6": "5+",
-    "7": "C",
+    "7": "I",
     "8": "15",
-    "9": "8",
-    "10": "12+",
+    "9": "9",
+    "10": "8-11",
     "11": "Mbappe",
-    "12": "Spain"
+    "12": "France"
   },
   "groups": {
     "A": [
@@ -45,32 +46,32 @@
     "D": [
       "USA",
       "Turkiye",
-      "Paraguay"
+      "Australia"
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Ecuador"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
       "Belgium",
-      "Egypt",
-      "Iran"
+      "Iran",
+      "Egypt"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
-      "Norway",
-      "Senegal"
+      "Senegal",
+      "Norway"
     ],
     "J": [
       "Argentina",

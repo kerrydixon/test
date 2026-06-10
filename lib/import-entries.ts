@@ -29,8 +29,9 @@ export interface EntryFile {
 }
 
 export interface ImportResult {
-  imported: string[];
-  skipped: string[]; // already present
+  imported: string[]; // newly created
+  updated: string[]; // existing entry refreshed from JSON
+  removed: string[]; // locked entry no longer in data/entries
   errors: { file: string; error: string }[];
 }
 
@@ -75,7 +76,7 @@ export async function importEntries(
   prisma: PrismaClient,
   dir = path.join(process.cwd(), "data", "entries"),
 ): Promise<ImportResult> {
-  const result: ImportResult = { imported: [], skipped: [], errors: [] };
+  const result: ImportResult = { imported: [], updated: [], removed: [], errors: [] };
 
   let files: string[] = [];
   try {
@@ -88,6 +89,9 @@ export async function importEntries(
   const teams = await prisma.team.findMany();
   const idByName = new Map(teams.map((t) => [t.name, t.id] as const));
   const priceByName = new Map(teams.map((t) => [t.name, t.priceTier] as const));
+
+  // Track every valid entrant name we see, so we can prune stale locked entries.
+  const seen = new Set<string>();
 
   for (const file of files) {
     let entry: EntryFile;
@@ -103,45 +107,75 @@ export async function importEntries(
       result.errors.push({ file, error: problem });
       continue;
     }
+    seen.add(entry.name.trim().toLowerCase());
+
+    // Build the child rows once; reused for create or in-place replace.
+    const childData = {
+      teams: {
+        create: entry.teams.map((t) => ({ teamId: idByName.get(resolveTeamName(t)!)! })),
+      },
+      scorers: {
+        create: entry.scorers.map((playerName) => ({ playerName: playerName.trim() })),
+      },
+      part2Answers: {
+        create: Object.entries(entry.part2 ?? {}).map(([questionNo, answer]) => ({
+          questionNo: Number(questionNo),
+          answer: answer.trim(),
+        })),
+      },
+      groupPredictions: {
+        create: GROUP_CODES.map((code) => {
+          const [first, second, third] = entry.groups[code];
+          return {
+            groupCode: code,
+            firstTeamId: idByName.get(resolveTeamName(first)!)!,
+            secondTeamId: idByName.get(resolveTeamName(second)!)!,
+            thirdTeamId: idByName.get(resolveTeamName(third)!)!,
+          };
+        }),
+      },
+    };
 
     const existing = await prisma.entrant.findFirst({
       where: { name: { equals: entry.name.trim(), mode: "insensitive" } },
     });
-    if (existing) {
-      result.skipped.push(entry.name);
-      continue;
-    }
 
-    const teamIds = entry.teams.map((t) => idByName.get(resolveTeamName(t)!)!);
-    await prisma.entrant.create({
-      data: {
-        name: entry.name.trim(),
-        email: entry.email?.trim() || null,
-        locked: true, // transcribed from the official submission — protected
-        teams: { create: teamIds.map((teamId) => ({ teamId })) },
-        scorers: {
-          create: entry.scorers.map((playerName) => ({ playerName: playerName.trim() })),
+    if (existing) {
+      // Refresh picks in place (stable id; knockout predictions untouched).
+      await prisma.entrant.update({
+        where: { id: existing.id },
+        data: {
+          name: entry.name.trim(),
+          email: entry.email?.trim() || null,
+          locked: true,
+          teams: { deleteMany: {}, ...childData.teams },
+          scorers: { deleteMany: {}, ...childData.scorers },
+          part2Answers: { deleteMany: {}, ...childData.part2Answers },
+          groupPredictions: { deleteMany: {}, ...childData.groupPredictions },
         },
-        part2Answers: {
-          create: Object.entries(entry.part2 ?? {}).map(([questionNo, answer]) => ({
-            questionNo: Number(questionNo),
-            answer: answer.trim(),
-          })),
+      });
+      result.updated.push(entry.name);
+    } else {
+      await prisma.entrant.create({
+        data: {
+          name: entry.name.trim(),
+          email: entry.email?.trim() || null,
+          locked: true, // transcribed from the official submission — protected
+          ...childData,
         },
-        groupPredictions: {
-          create: GROUP_CODES.map((code) => {
-            const [first, second, third] = entry.groups[code];
-            return {
-              groupCode: code,
-              firstTeamId: idByName.get(resolveTeamName(first)!)!,
-              secondTeamId: idByName.get(resolveTeamName(second)!)!,
-              thirdTeamId: idByName.get(resolveTeamName(third)!)!,
-            };
-          }),
-        },
-      },
-    });
-    result.imported.push(entry.name);
+      });
+      result.imported.push(entry.name);
+    }
+  }
+
+  // Prune locked entrants that are no longer represented in data/entries
+  // (e.g. a renamed/withdrawn submission). Unlocked entries are never touched.
+  const lockedEntrants = await prisma.entrant.findMany({ where: { locked: true } });
+  for (const e of lockedEntrants) {
+    if (!seen.has(e.name.trim().toLowerCase())) {
+      await prisma.entrant.delete({ where: { id: e.id } });
+      result.removed.push(e.name);
+    }
   }
 
   return result;

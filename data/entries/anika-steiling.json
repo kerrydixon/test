@@ -1,27 +1,28 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Anika Steiling",
   "email": null,
   "teams": [
     "Spain",
-    "Brazil"
+    "Germany"
   ],
   "scorers": [
+    "Haaland",
+    "Havertz",
     "Kane",
     "Mbappe",
     "Oyarzabal",
-    "Vinicius Jr.",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
-    "4": "Negative",
+    "2": "Spain",
+    "3": "Spain",
+    "4": "+1 or +2",
     "5": "First",
     "6": "5+",
     "7": "C",
-    "8": "15",
-    "9": "8",
+    "8": "13 or less",
+    "9": "10 or more",
     "10": "12+",
     "11": "Mbappe",
     "12": "Spain"
@@ -29,12 +30,12 @@
   "groups": {
     "A": [
       "Mexico",
-      "South Korea",
-      "Czechia"
+      "South Africa",
+      "South Korea"
     ],
     "B": [
-      "Switzerland",
       "Canada",
+      "Switzerland",
       "Bosnia & Herzegovina"
     ],
     "C": [
@@ -44,8 +45,8 @@
     ],
     "D": [
       "USA",
-      "Turkiye",
-      "Paraguay"
+      "Paraguay",
+      "Turkiye"
     ],
     "E": [
       "Germany",
@@ -53,14 +54,14 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
       "Belgium",
       "Egypt",
-      "Iran"
+      "New Zealand"
     ],
     "H": [
       "Spain",
@@ -75,17 +76,17 @@
     "J": [
       "Argentina",
       "Austria",
-      "Algeria"
+      "Jordan"
     ],
     "K": [
       "Portugal",
       "Colombia",
-      "DR Congo"
+      "Uzbekistan"
     ],
     "L": [
       "England",
       "Croatia",
-      "Ghana"
+      "Panama"
     ]
   }
 }

@@ -1,30 +1,31 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Matthew Press",
   "email": null,
   "teams": [
     "Spain",
-    "Brazil"
+    "Germany"
   ],
   "scorers": [
+    "Havertz",
     "Kane",
     "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
+    "Raphinha",
+    "Ronaldo",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "2": "Spain",
+    "3": "France",
     "4": "Negative",
     "5": "First",
-    "6": "5+",
+    "6": "3-4",
     "7": "C",
-    "8": "15",
-    "9": "8",
-    "10": "12+",
-    "11": "Mbappe",
-    "12": "Spain"
+    "8": "13 or less",
+    "9": "7 or less",
+    "10": "8-11",
+    "11": "Kane",
+    "12": "France"
   },
   "groups": {
     "A": [
@@ -34,8 +35,8 @@
     ],
     "B": [
       "Switzerland",
-      "Canada",
-      "Bosnia & Herzegovina"
+      "Bosnia & Herzegovina",
+      "Canada"
     ],
     "C": [
       "Brazil",
@@ -44,8 +45,8 @@
     ],
     "D": [
       "USA",
-      "Turkiye",
-      "Paraguay"
+      "Australia",
+      "Turkiye"
     ],
     "E": [
       "Germany",
@@ -53,9 +54,9 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
-      "Sweden"
+      "Sweden",
+      "Japan"
     ],
     "G": [
       "Belgium",
@@ -65,22 +66,22 @@
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
-      "Norway",
-      "Senegal"
+      "Senegal",
+      "Norway"
     ],
     "J": [
       "Argentina",
-      "Austria",
-      "Algeria"
+      "Algeria",
+      "Austria"
     ],
     "K": [
       "Portugal",
       "Colombia",
-      "DR Congo"
+      "Uzbekistan"
     ],
     "L": [
       "England",

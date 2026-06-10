@@ -1,29 +1,41 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Chris Kearney",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "Ecuador",
+    "Switzerland"
   ],
   "scorers": [
+    "Alvarez",
+    "De Bruyne",
+    "Diaz",
+    "Embolo",
+    "Fernandes",
+    "Haaland",
+    "Havertz",
     "Kane",
     "Mbappe",
+    "Messi",
+    "Olise",
     "Oyarzabal",
+    "Pulisic",
+    "Raphinha",
+    "Ronaldo",
     "Vinicius Jr.",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "2": "Spain",
+    "3": "Spain",
     "4": "Negative",
     "5": "First",
     "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
+    "7": "K",
+    "8": "14",
+    "9": "7 or less",
     "10": "12+",
-    "11": "Mbappe",
+    "11": "Oyarzabal",
     "12": "Spain"
   },
   "groups": {
@@ -34,17 +46,17 @@
     ],
     "B": [
       "Switzerland",
-      "Canada",
-      "Bosnia & Herzegovina"
+      "Bosnia & Herzegovina",
+      "Canada"
     ],
     "C": [
-      "Brazil",
       "Morocco",
+      "Brazil",
       "Scotland"
     ],
     "D": [
-      "USA",
       "Turkiye",
+      "USA",
       "Paraguay"
     ],
     "E": [
@@ -55,7 +67,7 @@
     "F": [
       "Japan",
       "Netherlands",
-      "Sweden"
+      "Tunisia"
     ],
     "G": [
       "Belgium",
@@ -78,14 +90,14 @@
       "Algeria"
     ],
     "K": [
-      "Portugal",
       "Colombia",
+      "Portugal",
       "DR Congo"
     ],
     "L": [
       "England",
       "Croatia",
-      "Ghana"
+      "Panama"
     ]
   }
 }

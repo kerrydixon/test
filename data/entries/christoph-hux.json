@@ -1,36 +1,44 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Christoph Hux",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "Belgium",
+    "Norway"
   ],
   "scorers": [
+    "Diaz",
+    "Fernandes",
+    "Haaland",
+    "Havertz",
     "Kane",
+    "Martinez",
     "Mbappe",
+    "Messi",
+    "Olise",
     "Oyarzabal",
+    "Ronaldo",
     "Vinicius Jr.",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "2": "Spain",
+    "3": "Spain",
     "4": "Negative",
     "5": "First",
     "6": "5+",
-    "7": "C",
-    "8": "15",
+    "7": "I",
+    "8": "13 or less",
     "9": "8",
     "10": "12+",
-    "11": "Mbappe",
+    "11": "Kane",
     "12": "Spain"
   },
   "groups": {
     "A": [
       "Mexico",
-      "South Korea",
-      "Czechia"
+      "Czechia",
+      "South Korea"
     ],
     "B": [
       "Switzerland",
@@ -43,8 +51,8 @@
       "Scotland"
     ],
     "D": [
-      "USA",
       "Turkiye",
+      "USA",
       "Paraguay"
     ],
     "E": [
@@ -53,8 +61,8 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
@@ -80,7 +88,7 @@
     "K": [
       "Portugal",
       "Colombia",
-      "DR Congo"
+      "Uzbekistan"
     ],
     "L": [
       "England",

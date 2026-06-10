@@ -1,30 +1,30 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Kieren Bruce",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "England",
+    "Portugal"
   ],
   "scorers": [
+    "Alvarez",
+    "Haaland",
     "Kane",
     "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
     "Yamal"
   ],
   "part2": {
-    "1": "USA win",
-    "2": "Argentina",
+    "1": "Draw",
+    "2": "Spain",
     "3": "Argentina",
-    "4": "Negative",
+    "4": "+1 or +2",
     "5": "First",
-    "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
+    "6": "3-4",
+    "7": "J",
+    "8": "13 or less",
+    "9": "7 or less",
     "10": "12+",
-    "11": "Mbappe",
-    "12": "Spain"
+    "11": "Kane",
+    "12": "England"
   },
   "groups": {
     "A": [
@@ -39,8 +39,8 @@
     ],
     "C": [
       "Brazil",
-      "Morocco",
-      "Scotland"
+      "Scotland",
+      "Morocco"
     ],
     "D": [
       "USA",
@@ -49,13 +49,13 @@
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Ecuador"
     ],
     "F": [
       "Japan",
-      "Netherlands",
-      "Sweden"
+      "Sweden",
+      "Netherlands"
     ],
     "G": [
       "Belgium",
@@ -65,7 +65,7 @@
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
@@ -80,7 +80,7 @@
     "K": [
       "Portugal",
       "Colombia",
-      "DR Congo"
+      "Uzbekistan"
     ],
     "L": [
       "England",

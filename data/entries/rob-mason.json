@@ -1,5 +1,5 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Rob Mason",
   "email": null,
   "teams": [
     "Spain",
@@ -9,43 +9,43 @@
     "Kane",
     "Mbappe",
     "Oyarzabal",
-    "Vinicius Jr.",
-    "Yamal"
+    "Thiago",
+    "Watkins"
   ],
   "part2": {
-    "1": "USA win",
-    "2": "Argentina",
+    "1": "Draw",
+    "2": "Spain",
     "3": "Argentina",
-    "4": "Negative",
+    "4": "+1 or +2",
     "5": "First",
-    "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
-    "10": "12+",
-    "11": "Mbappe",
+    "6": "3-4",
+    "7": "H",
+    "8": "13 or less",
+    "9": "9",
+    "10": "8-11",
+    "11": "Oyarzabal",
     "12": "Spain"
   },
   "groups": {
     "A": [
-      "Mexico",
       "South Korea",
-      "Czechia"
+      "Czechia",
+      "Mexico"
     ],
     "B": [
+      "Bosnia & Herzegovina",
       "Switzerland",
-      "Canada",
-      "Bosnia & Herzegovina"
+      "Canada"
     ],
     "C": [
       "Brazil",
-      "Morocco",
-      "Scotland"
+      "Scotland",
+      "Morocco"
     ],
     "D": [
-      "USA",
-      "Turkiye",
-      "Paraguay"
+      "Australia",
+      "Paraguay",
+      "USA"
     ],
     "E": [
       "Germany",
@@ -53,19 +53,19 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
-      "Sweden"
+      "Sweden",
+      "Japan"
     ],
     "G": [
       "Belgium",
       "Egypt",
-      "Iran"
+      "New Zealand"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
@@ -79,8 +79,8 @@
     ],
     "K": [
       "Portugal",
-      "Colombia",
-      "DR Congo"
+      "DR Congo",
+      "Colombia"
     ],
     "L": [
       "England",

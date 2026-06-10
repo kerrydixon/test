@@ -1,27 +1,27 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Richard Wood",
   "email": null,
   "teams": [
     "Spain",
-    "Brazil"
+    "Portugal"
   ],
   "scorers": [
+    "Dembele",
     "Kane",
     "Mbappe",
     "Oyarzabal",
-    "Vinicius Jr.",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
+    "2": "Spain",
     "3": "Argentina",
-    "4": "Negative",
-    "5": "First",
-    "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
+    "4": "+1 or +2",
+    "5": "Second",
+    "6": "3-4",
+    "7": "F",
+    "8": "16",
+    "9": "10 or more",
     "10": "12+",
     "11": "Mbappe",
     "12": "Spain"
@@ -29,8 +29,8 @@
   "groups": {
     "A": [
       "Mexico",
-      "South Korea",
-      "Czechia"
+      "Czechia",
+      "South Korea"
     ],
     "B": [
       "Switzerland",
@@ -53,8 +53,8 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
@@ -65,7 +65,7 @@
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
@@ -83,8 +83,8 @@
       "DR Congo"
     ],
     "L": [
-      "England",
       "Croatia",
+      "England",
       "Ghana"
     ]
   }

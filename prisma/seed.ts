@@ -79,8 +79,9 @@ async function main() {
 
   console.log("Importing entries from data/entries…");
   const imported = await importEntries(prisma);
-  if (imported.imported.length) console.log(`  imported: ${imported.imported.join(", ")}`);
-  if (imported.skipped.length) console.log(`  already present: ${imported.skipped.join(", ")}`);
+  if (imported.imported.length) console.log(`  created: ${imported.imported.length}`);
+  if (imported.updated.length) console.log(`  refreshed: ${imported.updated.length}`);
+  if (imported.removed.length) console.log(`  removed: ${imported.removed.join(", ")}`);
   for (const e of imported.errors) console.error(`  INVALID ${e.file}: ${e.error}`);
 
   const teamCount = await prisma.team.count();

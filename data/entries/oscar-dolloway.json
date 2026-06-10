@@ -1,46 +1,46 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Oscar Dolloway",
   "email": null,
   "teams": [
     "Spain",
-    "Brazil"
+    "Portugal"
   ],
   "scorers": [
     "Kane",
+    "Martinez",
     "Mbappe",
     "Oyarzabal",
-    "Vinicius Jr.",
-    "Yamal"
+    "Thiago"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "2": "Spain",
+    "3": "Spain",
     "4": "Negative",
     "5": "First",
-    "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
+    "6": "3-4",
+    "7": "H",
+    "8": "13 or less",
+    "9": "7 or less",
     "10": "12+",
-    "11": "Mbappe",
+    "11": "Kane",
     "12": "Spain"
   },
   "groups": {
     "A": [
       "Mexico",
-      "South Korea",
-      "Czechia"
+      "Czechia",
+      "South Korea"
     ],
     "B": [
       "Switzerland",
       "Canada",
-      "Bosnia & Herzegovina"
+      "Qatar"
     ],
     "C": [
       "Brazil",
-      "Morocco",
-      "Scotland"
+      "Scotland",
+      "Morocco"
     ],
     "D": [
       "USA",
@@ -49,28 +49,28 @@
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Ecuador"
     ],
     "F": [
-      "Japan",
       "Netherlands",
-      "Sweden"
+      "Sweden",
+      "Japan"
     ],
     "G": [
       "Belgium",
       "Egypt",
-      "Iran"
+      "New Zealand"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
-      "Norway",
-      "Senegal"
+      "Senegal",
+      "Norway"
     ],
     "J": [
       "Argentina",
@@ -80,12 +80,12 @@
     "K": [
       "Portugal",
       "Colombia",
-      "DR Congo"
+      "Uzbekistan"
     ],
     "L": [
       "England",
-      "Croatia",
-      "Ghana"
+      "Ghana",
+      "Croatia"
     ]
   }
 }

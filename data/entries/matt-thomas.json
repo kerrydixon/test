@@ -1,41 +1,43 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Matt Thomas",
   "email": null,
   "teams": [
     "Spain",
-    "Brazil"
+    "Mexico"
   ],
   "scorers": [
+    "Alvarez",
+    "Gakpo",
+    "Haaland",
     "Kane",
     "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
+    "Raphinha",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
-    "4": "Negative",
+    "2": "France",
+    "3": "Spain",
+    "4": "+1 or +2",
     "5": "First",
-    "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
+    "6": "3-4",
+    "7": "H",
+    "8": "14",
+    "9": "9",
     "10": "12+",
-    "11": "Mbappe",
+    "11": "Kane",
     "12": "Spain"
   },
   "groups": {
     "A": [
       "Mexico",
-      "South Korea",
-      "Czechia"
+      "Czechia",
+      "South Africa"
     ],
     "B": [
-      "Switzerland",
+      "Bosnia & Herzegovina",
       "Canada",
-      "Bosnia & Herzegovina"
+      "Switzerland"
     ],
     "C": [
       "Brazil",
@@ -43,9 +45,9 @@
       "Scotland"
     ],
     "D": [
+      "Paraguay",
       "USA",
-      "Turkiye",
-      "Paraguay"
+      "Turkiye"
     ],
     "E": [
       "Germany",
@@ -53,19 +55,19 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
-      "Sweden"
+      "Sweden",
+      "Japan"
     ],
     "G": [
       "Belgium",
       "Egypt",
-      "Iran"
+      "New Zealand"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
@@ -75,7 +77,7 @@
     "J": [
       "Argentina",
       "Austria",
-      "Algeria"
+      "Jordan"
     ],
     "K": [
       "Portugal",
@@ -85,7 +87,7 @@
     "L": [
       "England",
       "Croatia",
-      "Ghana"
+      "Panama"
     ]
   }
 }

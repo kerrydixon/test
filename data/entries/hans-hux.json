@@ -1,41 +1,49 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Hans Hux",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "Germany",
+    "Switzerland"
   ],
   "scorers": [
+    "Alvarez",
+    "Dembele",
+    "Haaland",
+    "Havertz",
     "Kane",
     "Mbappe",
-    "Oyarzabal",
+    "Messi",
+    "Olise",
+    "Saka",
+    "Ueda",
+    "Undav",
     "Vinicius Jr.",
-    "Yamal"
+    "Yildiz"
   ],
   "part2": {
-    "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "1": "Paraguay win",
+    "2": "France",
+    "3": "France",
     "4": "Negative",
     "5": "First",
-    "6": "5+",
-    "7": "C",
+    "6": "3-4",
+    "7": "I",
     "8": "15",
-    "9": "8",
-    "10": "12+",
-    "11": "Mbappe",
-    "12": "Spain"
+    "9": "10 or more",
+    "10": "8-11",
+    "11": "Kane",
+    "12": "England"
   },
   "groups": {
     "A": [
       "Mexico",
       "South Korea",
-      "Czechia"
+      "South Africa"
     ],
     "B": [
       "Switzerland",
-      "Canada",
-      "Bosnia & Herzegovina"
+      "Bosnia & Herzegovina",
+      "Canada"
     ],
     "C": [
       "Brazil",
@@ -43,29 +51,29 @@
       "Scotland"
     ],
     "D": [
-      "USA",
       "Turkiye",
-      "Paraguay"
+      "Paraguay",
+      "Australia"
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Ecuador"
     ],
     "F": [
       "Japan",
-      "Netherlands",
-      "Sweden"
+      "Tunisia",
+      "Netherlands"
     ],
     "G": [
       "Belgium",
       "Egypt",
-      "Iran"
+      "New Zealand"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
@@ -80,7 +88,7 @@
     "K": [
       "Portugal",
       "Colombia",
-      "DR Congo"
+      "Uzbekistan"
     ],
     "L": [
       "England",

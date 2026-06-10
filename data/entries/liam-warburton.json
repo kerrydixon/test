@@ -1,14 +1,17 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Liam Warburton",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "Brazil",
+    "Belgium"
   ],
   "scorers": [
+    "Alvarez",
+    "Fernandes",
+    "Haaland",
+    "Lukaku",
     "Kane",
     "Mbappe",
-    "Oyarzabal",
     "Vinicius Jr.",
     "Yamal"
   ],
@@ -16,14 +19,14 @@
     "1": "USA win",
     "2": "Argentina",
     "3": "Argentina",
-    "4": "Negative",
+    "4": "+1 or +2",
     "5": "First",
     "6": "5+",
-    "7": "C",
+    "7": "H",
     "8": "15",
     "9": "8",
     "10": "12+",
-    "11": "Mbappe",
+    "11": "Kane",
     "12": "Spain"
   },
   "groups": {
@@ -39,13 +42,13 @@
     ],
     "C": [
       "Brazil",
-      "Morocco",
-      "Scotland"
+      "Scotland",
+      "Morocco"
     ],
     "D": [
       "USA",
       "Turkiye",
-      "Paraguay"
+      "Australia"
     ],
     "E": [
       "Germany",
@@ -53,24 +56,24 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
       "Belgium",
-      "Egypt",
-      "Iran"
+      "Iran",
+      "Egypt"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
-      "Norway",
-      "Senegal"
+      "Senegal",
+      "Norway"
     ],
     "J": [
       "Argentina",
@@ -80,7 +83,7 @@
     "K": [
       "Portugal",
       "Colombia",
-      "DR Congo"
+      "Uzbekistan"
     ],
     "L": [
       "England",

@@ -1,30 +1,31 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Karl-Heinrich Schneider",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "France",
+    "Germany"
   ],
   "scorers": [
+    "Dembele",
+    "Havertz",
     "Kane",
     "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
+    "Olise",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "2": "Spain",
+    "3": "Spain",
     "4": "Negative",
     "5": "First",
-    "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
-    "10": "12+",
+    "6": "3-4",
+    "7": "H",
+    "8": "13 or less",
+    "9": "7 or less",
+    "10": "8-11",
     "11": "Mbappe",
-    "12": "Spain"
+    "12": "France"
   },
   "groups": {
     "A": [
@@ -35,7 +36,7 @@
     "B": [
       "Switzerland",
       "Canada",
-      "Bosnia & Herzegovina"
+      "Qatar"
     ],
     "C": [
       "Brazil",
@@ -45,7 +46,7 @@
     "D": [
       "USA",
       "Turkiye",
-      "Paraguay"
+      "Australia"
     ],
     "E": [
       "Germany",
@@ -53,24 +54,24 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
       "Belgium",
-      "Egypt",
-      "Iran"
+      "Iran",
+      "Egypt"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
-      "Norway",
-      "Senegal"
+      "Senegal",
+      "Norway"
     ],
     "J": [
       "Argentina",
@@ -85,7 +86,7 @@
     "L": [
       "England",
       "Croatia",
-      "Ghana"
+      "Panama"
     ]
   }
 }

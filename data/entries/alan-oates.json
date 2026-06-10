@@ -1,30 +1,32 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Alan Oates",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "France",
+    "Mexico"
   ],
   "scorers": [
+    "Alvarez",
+    "Haaland",
     "Kane",
+    "Martinez",
     "Mbappe",
-    "Oyarzabal",
     "Vinicius Jr.",
     "Yamal"
   ],
   "part2": {
-    "1": "USA win",
+    "1": "Draw",
     "2": "Argentina",
     "3": "Argentina",
-    "4": "Negative",
+    "4": "Zero",
     "5": "First",
-    "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
+    "6": "3-4",
+    "7": "I",
+    "8": "14",
+    "9": "9",
     "10": "12+",
     "11": "Mbappe",
-    "12": "Spain"
+    "12": "France"
   },
   "groups": {
     "A": [
@@ -33,8 +35,8 @@
       "Czechia"
     ],
     "B": [
-      "Switzerland",
       "Canada",
+      "Switzerland",
       "Bosnia & Herzegovina"
     ],
     "C": [
@@ -44,28 +46,28 @@
     ],
     "D": [
       "USA",
-      "Turkiye",
-      "Paraguay"
+      "Paraguay",
+      "Turkiye"
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Ecuador"
     ],
     "F": [
-      "Japan",
       "Netherlands",
-      "Sweden"
+      "Sweden",
+      "Japan"
     ],
     "G": [
       "Belgium",
-      "Egypt",
-      "Iran"
+      "Iran",
+      "Egypt"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",

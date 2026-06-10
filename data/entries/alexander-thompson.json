@@ -1,30 +1,37 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Alexander Thompson",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "Brazil",
+    "Norway"
   ],
   "scorers": [
+    "Alvarez",
+    "Dembele",
+    "Fernandes",
+    "Havertz",
     "Kane",
+    "Martinez",
     "Mbappe",
+    "Messi",
     "Oyarzabal",
-    "Vinicius Jr.",
+    "Ronaldo",
+    "Saka",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "2": "France",
+    "3": "France",
     "4": "Negative",
     "5": "First",
-    "6": "5+",
-    "7": "C",
+    "6": "3-4",
+    "7": "I",
     "8": "15",
-    "9": "8",
+    "9": "9",
     "10": "12+",
-    "11": "Mbappe",
-    "12": "Spain"
+    "11": "Kane",
+    "12": "England"
   },
   "groups": {
     "A": [
@@ -43,8 +50,8 @@
       "Scotland"
     ],
     "D": [
-      "USA",
       "Turkiye",
+      "USA",
       "Paraguay"
     ],
     "E": [
@@ -53,8 +60,8 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
@@ -65,7 +72,7 @@
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
@@ -80,12 +87,12 @@
     "K": [
       "Portugal",
       "Colombia",
-      "DR Congo"
+      "Uzbekistan"
     ],
     "L": [
       "England",
-      "Croatia",
-      "Ghana"
+      "Ghana",
+      "Croatia"
     ]
   }
 }

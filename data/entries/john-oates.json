@@ -1,41 +1,43 @@
 {
-  "name": "Kerry Dixon",
+  "name": "John Oates",
   "email": null,
   "teams": [
     "Spain",
-    "Brazil"
+    "Mexico"
   ],
   "scorers": [
+    "Haaland",
+    "Jimenez",
     "Kane",
     "Mbappe",
     "Oyarzabal",
-    "Vinicius Jr.",
-    "Yamal"
+    "Raphinha",
+    "Wirtz"
   ],
   "part2": {
-    "1": "USA win",
-    "2": "Argentina",
+    "1": "Draw",
+    "2": "Spain",
     "3": "Argentina",
-    "4": "Negative",
+    "4": "Zero",
     "5": "First",
-    "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
-    "10": "12+",
-    "11": "Mbappe",
+    "6": "3-4",
+    "7": "H",
+    "8": "13 or less",
+    "9": "7 or less",
+    "10": "8-11",
+    "11": "Oyarzabal",
     "12": "Spain"
   },
   "groups": {
     "A": [
       "Mexico",
-      "South Korea",
-      "Czechia"
+      "Czechia",
+      "South Africa"
     ],
     "B": [
       "Switzerland",
-      "Canada",
-      "Bosnia & Herzegovina"
+      "Bosnia & Herzegovina",
+      "Canada"
     ],
     "C": [
       "Brazil",
@@ -43,34 +45,34 @@
       "Scotland"
     ],
     "D": [
-      "USA",
       "Turkiye",
-      "Paraguay"
+      "Paraguay",
+      "Australia"
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Ecuador"
     ],
     "F": [
-      "Japan",
       "Netherlands",
-      "Sweden"
+      "Tunisia",
+      "Japan"
     ],
     "G": [
-      "Belgium",
       "Egypt",
+      "Belgium",
       "Iran"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
-      "Norway",
-      "Senegal"
+      "Senegal",
+      "Norway"
     ],
     "J": [
       "Argentina",

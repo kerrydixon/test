@@ -1,36 +1,37 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Joanna Boon",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "England",
+    "Germany"
   ],
   "scorers": [
+    "Dembele",
+    "Havertz",
     "Kane",
     "Mbappe",
-    "Oyarzabal",
     "Vinicius Jr.",
     "Yamal"
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
-    "4": "Negative",
+    "2": "France",
+    "3": "Spain",
+    "4": "+1 or +2",
     "5": "First",
-    "6": "5+",
-    "7": "C",
-    "8": "15",
+    "6": "0-2",
+    "7": "E",
+    "8": "13 or less",
     "9": "8",
-    "10": "12+",
-    "11": "Mbappe",
+    "10": "8-11",
+    "11": "Kane",
     "12": "Spain"
   },
   "groups": {
     "A": [
       "Mexico",
-      "South Korea",
-      "Czechia"
+      "South Africa",
+      "South Korea"
     ],
     "B": [
       "Switzerland",
@@ -39,38 +40,38 @@
     ],
     "C": [
       "Brazil",
-      "Morocco",
-      "Scotland"
+      "Scotland",
+      "Morocco"
     ],
     "D": [
-      "USA",
       "Turkiye",
+      "USA",
       "Paraguay"
     ],
     "E": [
       "Germany",
-      "Ecuador",
-      "Ivory Coast"
+      "Ivory Coast",
+      "Ecuador"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
       "Belgium",
       "Egypt",
-      "Iran"
+      "New Zealand"
     ],
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
       "Norway",
-      "Senegal"
+      "Iraq"
     ],
     "J": [
       "Argentina",
@@ -79,8 +80,8 @@
     ],
     "K": [
       "Portugal",
-      "Colombia",
-      "DR Congo"
+      "Uzbekistan",
+      "Colombia"
     ],
     "L": [
       "England",

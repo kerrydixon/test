@@ -1,41 +1,41 @@
 {
-  "name": "Kerry Dixon",
+  "name": "Phil Hazeldine",
   "email": null,
   "teams": [
-    "Spain",
-    "Brazil"
+    "France",
+    "Netherlands"
   ],
   "scorers": [
+    "Diaz",
+    "Haaland",
     "Kane",
     "Mbappe",
-    "Oyarzabal",
-    "Vinicius Jr.",
-    "Yamal"
+    "Vinicius Jr."
   ],
   "part2": {
     "1": "USA win",
-    "2": "Argentina",
-    "3": "Argentina",
+    "2": "France",
+    "3": "France",
     "4": "Negative",
     "5": "First",
     "6": "5+",
-    "7": "C",
-    "8": "15",
-    "9": "8",
+    "7": "L",
+    "8": "16",
+    "9": "10 or more",
     "10": "12+",
     "11": "Mbappe",
-    "12": "Spain"
+    "12": "France"
   },
   "groups": {
     "A": [
       "Mexico",
-      "South Korea",
-      "Czechia"
+      "Czechia",
+      "South Africa"
     ],
     "B": [
       "Switzerland",
-      "Canada",
-      "Bosnia & Herzegovina"
+      "Bosnia & Herzegovina",
+      "Canada"
     ],
     "C": [
       "Brazil",
@@ -53,8 +53,8 @@
       "Ivory Coast"
     ],
     "F": [
-      "Japan",
       "Netherlands",
+      "Japan",
       "Sweden"
     ],
     "G": [
@@ -65,12 +65,12 @@
     "H": [
       "Spain",
       "Uruguay",
-      "Cape Verde"
+      "Saudi Arabia"
     ],
     "I": [
       "France",
-      "Norway",
-      "Senegal"
+      "Senegal",
+      "Norway"
     ],
     "J": [
       "Argentina",
@@ -80,7 +80,7 @@
     "K": [
       "Portugal",
       "Colombia",
-      "DR Congo"
+      "Uzbekistan"
     ],
     "L": [
       "England",
