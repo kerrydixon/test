@@ -8,6 +8,7 @@
 // All database work is batched into a few transactions/bulk calls so a full sync
 // (dozens of matches) finishes in ~1-2s rather than hundreds of round-trips.
 
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import { resolveTeamName } from "@/lib/teams";
 import { wikipediaProvider } from "./providers/wikipedia";
@@ -56,8 +57,8 @@ export async function sync(
   const byPair = new Map(existingMatches.map((m) => [pairKey(m.stage, m.homeTeamId, m.awayTeamId), m] as const));
 
   let skipped = 0;
-  const updates: { id: string; data: Record<string, unknown> }[] = [];
-  const creates: { data: Record<string, unknown>; goals?: RawGoal[] }[] = [];
+  const updates: { id: string; data: Prisma.MatchUncheckedUpdateInput }[] = [];
+  const creates: { data: Prisma.MatchUncheckedCreateInput }[] = [];
   // matchId (or create-index placeholder) -> goals to (re)write
   const eventWork: { ref: string | { createIndex: number }; goals: RawGoal[] }[] = [];
 
