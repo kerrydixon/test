@@ -1,13 +1,19 @@
 import Link from "next/link";
-import { Download, FlaskConical, RefreshCw, Trash2 } from "lucide-react";
+import { CheckCircle2, Download, FlaskConical, RefreshCw, Trash2, XCircle } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { runSync, simulateGroupStageAction, wipeAllDataAction } from "../actions";
+import { SubmitButton } from "@/components/SubmitButton";
 
 export const dynamic = "force-dynamic";
 // Simulation/wipe touch many rows; give the action room beyond the default.
 export const maxDuration = 60;
 
-export default async function AdminDashboard() {
+export default async function AdminDashboard({
+  searchParams,
+}: {
+  searchParams: Promise<{ sync?: string; ok?: string }>;
+}) {
+  const { sync: syncMsg, ok } = await searchParams;
   const [entrants, matchesPlayed, matchesTotal, logs] = await Promise.all([
     prisma.entrant.count(),
     prisma.match.count({ where: { status: "FINISHED" } }),
@@ -32,12 +38,29 @@ export default async function AdminDashboard() {
             <Download className="h-4 w-4" /> Excel calculator
           </a>
           <form action={runSync}>
-            <button className="btn-primary">
+            <SubmitButton pendingText="Refreshing…">
               <RefreshCw className="h-4 w-4" /> Refresh results now
-            </button>
+            </SubmitButton>
           </form>
         </div>
       </div>
+
+      {syncMsg && (
+        <div
+          className={`mt-4 flex items-start gap-2 rounded-xl border p-3 text-sm ${
+            ok === "1"
+              ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+              : "border-rose-200 bg-rose-50 text-rose-800"
+          }`}
+        >
+          {ok === "1" ? (
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
+          ) : (
+            <XCircle className="mt-0.5 h-4 w-4 shrink-0" />
+          )}
+          <span><strong>Last refresh:</strong> {syncMsg}</span>
+        </div>
+      )}
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {stats.map((s) => (

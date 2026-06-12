@@ -34,8 +34,10 @@ function revalidateEverything() {
 
 export async function runSync() {
   await requireAdmin();
-  await sync();
+  const result = await sync();
   revalidateEverything();
+  // Surface the outcome to the dashboard so it's obvious the button did something.
+  redirect(`/admin?sync=${encodeURIComponent(result.message)}&ok=${result.ok ? 1 : 0}`);
 }
 
 export async function simulateGroupStageAction() {
