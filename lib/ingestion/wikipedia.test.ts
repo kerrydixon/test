@@ -111,3 +111,33 @@ describe("heading-context stage/group detection", () => {
     expect(final.goals!.find((g) => g.scorerName === "Mbappé")!.isExtraTime).toBe(true);
   });
 });
+
+describe("goal cells wrapped in block elements (real Wikipedia markup)", () => {
+  // Goals wrapped in an inner <div> used to be read twice (selecting "div" matched
+  // both the wrapper and the inner div). Mexico 2-0 with two scorers must give 2 goals.
+  const FIX = `
+    <table class="footballbox">
+      <tr><th class="fhome">Mexico</th><th class="fscore"><a>2–0</a></th><th class="faway">South Africa</th></tr>
+      <tr>
+        <td class="fgoals fhgoal"><div class="plainlist"><div>Jiménez 23'</div><div>Raphinha 67'</div></div></td>
+        <td></td>
+        <td class="fgoals fagoal"></td>
+      </tr>
+    </table>`;
+  const m = parseFootballBoxes(FIX)[0];
+
+  it("reads each goal exactly once", () => {
+    expect(m.homeGoals).toBe(2);
+    expect(m.goals).toHaveLength(2);
+    expect(m.goals!.map((g) => g.scorerName).sort()).toEqual(["Jiménez", "Raphinha"]);
+  });
+
+  it("collapses a goal duplicated at the same minute", () => {
+    const dup = `
+      <table class="footballbox">
+        <tr><th class="fhome">A</th><th class="fscore"><a>1–0</a></th><th class="faway">B</th></tr>
+        <tr><td class="fgoals fhgoal"><div>Smith 30'<br>Smith 30'</div></td><td></td><td class="fgoals fagoal"></td></tr>
+      </table>`;
+    expect(parseFootballBoxes(dup)[0].goals).toHaveLength(1);
+  });
+});

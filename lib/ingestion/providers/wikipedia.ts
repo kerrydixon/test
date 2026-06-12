@@ -42,8 +42,17 @@ export function classifyHeading(text: string): { stage: StageCtx; group: string 
 
 function parseGoalCell(html: string, teamName: string): RawGoal[] {
   if (!html.trim()) return [];
-  const text = cheerio.load(`<div>${html.replace(/<br\s*\/?>/gi, "\n")}</div>`)("div").text();
+  // Put each goal on its own line: Wikipedia separates goals with <br> but also
+  // wraps them in block elements. Then read the text from a single, uniquely-id'd
+  // wrapper — selecting by tag ("div") would also match inner divs and concatenate
+  // their text, reading every goal twice.
+  const normalized = html
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/(div|li|p|tr|span)>/gi, "\n");
+  const text = cheerio.load(`<div id="goalcell">${normalized}</div>`)("#goalcell").text();
+
   const goals: RawGoal[] = [];
+  const seen = new Set<string>(); // a player can't score twice in the same minute
   for (const line of text.split("\n").map((l) => l.trim()).filter(Boolean)) {
     const isOwnGoal = /\(o\.g\.\)/i.test(line);
     // A normal penalty "(pen.)" counts; only shoot-out goals are excluded. Wikipedia
@@ -55,12 +64,16 @@ function parseGoalCell(html: string, teamName: string): RawGoal[] {
       .replace(/[,;]/g, " ")
       .replace(/\s+/g, " ")
       .trim();
+    if (!scorerName) continue; // skip stray punctuation-only lines
     const minutes = [...line.matchAll(MINUTE_RE)].map((m) => Number(m[1]));
     const useMinutes = minutes.length ? minutes : [0];
     for (const minute of useMinutes) {
+      const key = `${scorerName.toLowerCase()}|${minute}|${isOwnGoal}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
       goals.push({
         teamName,
-        scorerName: scorerName || "Unknown",
+        scorerName,
         assistName: null, // Wikipedia footballboxes don't list assists
         minute,
         isOwnGoal,
