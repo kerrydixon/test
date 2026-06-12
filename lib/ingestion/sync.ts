@@ -57,6 +57,10 @@ export async function sync(
   const byPair = new Map(existingMatches.map((m) => [pairKey(m.stage, m.homeTeamId, m.awayTeamId), m] as const));
 
   let skipped = 0;
+  let skippedUnknownTeam = 0;
+  let skippedLocked = 0;
+  let skippedNoFixture = 0;
+  const unresolved = new Set<string>();
   const updates: { id: string; data: Prisma.MatchUncheckedUpdateInput }[] = [];
   const creates: { data: Prisma.MatchUncheckedCreateInput }[] = [];
   // matchId (or create-index placeholder) -> goals to (re)write
@@ -66,6 +70,9 @@ export async function sync(
     const homeTeamId = resolveId(rm.homeTeamName);
     const awayTeamId = resolveId(rm.awayTeamName);
     if (!homeTeamId || !awayTeamId) {
+      if (!homeTeamId) unresolved.add(rm.homeTeamName);
+      if (!awayTeamId) unresolved.add(rm.awayTeamName);
+      skippedUnknownTeam++;
       skipped++;
       continue;
     }
@@ -74,6 +81,7 @@ export async function sync(
       byRef.get(rm.externalRef) ?? byPair.get(pairKey(rm.stage, homeTeamId, awayTeamId));
 
     if (existing?.adminLocked) {
+      skippedLocked++;
       skipped++;
       continue;
     }
@@ -89,6 +97,7 @@ export async function sync(
       // Group pairings are all pre-seeded, so never create one (avoids duplicate
       // fixtures). Knockout fixtures aren't pre-seeded, so create those.
       if (rm.stage === "GROUP") {
+        skippedNoFixture++;
         skipped++;
         continue;
       }
@@ -176,9 +185,17 @@ export async function sync(
     await prisma.matchEvent.createMany({ data: eventRows });
   }
 
+  const reasons: string[] = [];
+  if (skippedUnknownTeam) reasons.push(`${skippedUnknownTeam} unknown team`);
+  if (skippedLocked) reasons.push(`${skippedLocked} locked`);
+  if (skippedNoFixture) reasons.push(`${skippedNoFixture} no fixture`);
+  let message = `Fetched ${raw.length} from ${provider.name}: updated ${updates.length}, created ${creates.length}, skipped ${skipped}`;
+  if (reasons.length) message += ` (${reasons.join(", ")})`;
+  if (unresolved.size) message += ` — names: ${[...unresolved].slice(0, 8).join(" | ")}`;
+
   const result: SyncResult = {
     ok: true,
-    message: `Fetched ${raw.length} from ${provider.name}: updated ${updates.length}, created ${creates.length}, skipped ${skipped}`,
+    message,
     created: creates.length,
     updated: updates.length,
     skipped,
