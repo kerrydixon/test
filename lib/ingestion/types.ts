@@ -32,5 +32,7 @@ export interface RawMatch {
 
 export interface ResultsProvider {
   name: string;
+  /** Per-run diagnostic (e.g. per-page fetch counts), surfaced in the sync log. */
+  report?: string;
   fetchMatches(): Promise<RawMatch[]>;
 }

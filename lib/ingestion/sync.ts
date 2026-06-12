@@ -25,9 +25,17 @@ export interface SyncResult {
 const pairKey = (stage: string, a: string, b: string) =>
   `${stage}|${[a, b].sort().join("-")}`;
 
-export async function sync(
-  provider: ResultsProvider = wikipediaProvider(),
-): Promise<SyncResult> {
+/** Build the provider from the admin-configured "resultsUrls" setting, if any. */
+async function configuredProvider(): Promise<ResultsProvider> {
+  const row = await prisma.setting.findUnique({ where: { key: "resultsUrls" } });
+  const urls = row?.value
+    ? row.value.split(",").map((s) => s.trim()).filter(Boolean)
+    : undefined;
+  return wikipediaProvider(urls);
+}
+
+export async function sync(providerArg?: ResultsProvider): Promise<SyncResult> {
+  const provider = providerArg ?? (await configuredProvider());
   let raw: RawMatch[] = [];
   try {
     raw = await provider.fetchMatches();
@@ -192,6 +200,7 @@ export async function sync(
   let message = `Fetched ${raw.length} from ${provider.name}: updated ${updates.length}, created ${creates.length}, skipped ${skipped}`;
   if (reasons.length) message += ` (${reasons.join(", ")})`;
   if (unresolved.size) message += ` — names: ${[...unresolved].slice(0, 8).join(" | ")}`;
+  if (provider.report) message += ` | pages: ${provider.report}`;
 
   const result: SyncResult = {
     ok: true,

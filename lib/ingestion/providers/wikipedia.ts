@@ -174,28 +174,34 @@ async function fetchPage(url: string): Promise<RawMatch[]> {
 
 export function wikipediaProvider(urls?: string[]): ResultsProvider {
   const pages =
-    urls ??
-    (process.env.WIKIPEDIA_RESULTS_URL
-      ? process.env.WIKIPEDIA_RESULTS_URL.split(",").map((u) => u.trim())
-      : DEFAULT_PAGES);
+    urls && urls.length
+      ? urls
+      : process.env.WIKIPEDIA_RESULTS_URL
+        ? process.env.WIKIPEDIA_RESULTS_URL.split(",").map((u) => u.trim())
+        : DEFAULT_PAGES;
 
-  return {
+  const provider: ResultsProvider = {
     name: "wikipedia",
+    report: "",
     async fetchMatches() {
       const all: RawMatch[] = [];
-      const errors: string[] = [];
+      const parts: string[] = [];
       for (const url of pages) {
+        const short = (url.split("/wiki/")[1] ?? url).slice(0, 44);
         try {
-          all.push(...(await fetchPage(url)));
+          const m = await fetchPage(url);
+          all.push(...m);
+          parts.push(`${short}=${m.length}`);
         } catch (e) {
-          errors.push(e instanceof Error ? e.message : String(e));
+          parts.push(`${short}=ERR(${(e instanceof Error ? e.message : String(e)).slice(0, 40)})`);
         }
       }
-      // Only fail the whole sync if every page failed; partial data is still useful.
-      if (all.length === 0 && errors.length) {
-        throw new Error(`All result pages failed: ${errors.join("; ")}`);
+      provider.report = parts.join("; ");
+      if (all.length === 0) {
+        throw new Error(provider.report || "no pages configured");
       }
       return all;
     },
   };
+  return provider;
 }

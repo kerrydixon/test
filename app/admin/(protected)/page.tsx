@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { CheckCircle2, Download, FlaskConical, RefreshCw, Trash2, XCircle } from "lucide-react";
 import { prisma } from "@/lib/db";
-import { runSync, simulateGroupStageAction, wipeAllDataAction } from "../actions";
+import { runSync, setResultsUrls, simulateGroupStageAction, wipeAllDataAction } from "../actions";
 import { SubmitButton } from "@/components/SubmitButton";
 
 export const dynamic = "force-dynamic";
@@ -14,11 +14,12 @@ export default async function AdminDashboard({
   searchParams: Promise<{ sync?: string; ok?: string }>;
 }) {
   const { sync: syncMsg, ok } = await searchParams;
-  const [entrants, matchesPlayed, matchesTotal, logs] = await Promise.all([
+  const [entrants, matchesPlayed, matchesTotal, logs, resultsUrlSetting] = await Promise.all([
     prisma.entrant.count(),
     prisma.match.count({ where: { status: "FINISHED" } }),
     prisma.match.count(),
     prisma.syncLog.findMany({ orderBy: { ranAt: "desc" }, take: 5 }),
+    prisma.setting.findUnique({ where: { key: "resultsUrls" } }),
   ]);
 
   const stats = [
@@ -102,6 +103,27 @@ export default async function AdminDashboard({
             </tbody>
           </table>
         )}
+      </div>
+
+      {/* Results source */}
+      <div className="card mt-8 p-5">
+        <h2 className="font-semibold text-slate-900">Results source (Wikipedia pages)</h2>
+        <p className="mt-1 text-sm text-slate-500">
+          Comma-separated Wikipedia page URLs the scraper reads. The match boxes for the
+          group stage and knockouts usually live on dedicated sub-pages — paste the page(s)
+          that actually show the results. Leave blank to use the defaults. After saving,
+          click <strong>Refresh results now</strong>; the result banner shows a per-page
+          count so you can tell which page is working.
+        </p>
+        <form action={setResultsUrls} className="mt-3 flex flex-col gap-2 sm:flex-row">
+          <input
+            name="urls"
+            className="input"
+            defaultValue={resultsUrlSetting?.value ?? ""}
+            placeholder="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_group_stage, https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage"
+          />
+          <SubmitButton className="btn-secondary" pendingText="Saving…">Save source</SubmitButton>
+        </form>
       </div>
 
       {/* Testing tools */}

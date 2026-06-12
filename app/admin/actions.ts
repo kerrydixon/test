@@ -8,6 +8,7 @@ import {
   requireAdmin,
   startAdminSession,
 } from "@/lib/auth";
+import { prisma } from "@/lib/db";
 import { sync } from "@/lib/ingestion/sync";
 import { simulateGroupStage, wipeAllData } from "@/lib/demo/simulate";
 
@@ -38,6 +39,21 @@ export async function runSync() {
   revalidateEverything();
   // Surface the outcome to the dashboard so it's obvious the button did something.
   redirect(`/admin?sync=${encodeURIComponent(result.message)}&ok=${result.ok ? 1 : 0}`);
+}
+
+export async function setResultsUrls(formData: FormData) {
+  await requireAdmin();
+  const value = String(formData.get("urls") ?? "").trim();
+  await prisma.setting.upsert({
+    where: { key: "resultsUrls" },
+    update: { value },
+    create: { key: "resultsUrls", value },
+  });
+  redirect(
+    `/admin?sync=${encodeURIComponent(
+      value ? "Saved results source — click Refresh to test it." : "Cleared — using default pages.",
+    )}&ok=1`,
+  );
 }
 
 export async function simulateGroupStageAction() {
