@@ -74,6 +74,11 @@ export async function sync(providerArg?: ResultsProvider): Promise<SyncResult> {
   // matchId (or create-index placeholder) -> goals to (re)write
   const eventWork: { ref: string | { createIndex: number }; goals: RawGoal[] }[] = [];
 
+  // Resolve teams and DEDUPLICATE: the same match can appear on more than one
+  // configured page (or twice on a page), which would otherwise double-count its
+  // goals. Keep one entry per stage+team-pair, preferring a played result with the
+  // most goal detail.
+  const best = new Map<string, { rm: RawMatch; homeTeamId: string; awayTeamId: string }>();
   for (const rm of raw) {
     const homeTeamId = resolveId(rm.homeTeamName);
     const awayTeamId = resolveId(rm.awayTeamName);
@@ -84,7 +89,22 @@ export async function sync(providerArg?: ResultsProvider): Promise<SyncResult> {
       skipped++;
       continue;
     }
+    const key = pairKey(rm.stage, homeTeamId, awayTeamId);
+    const cur = best.get(key);
+    if (!cur) {
+      best.set(key, { rm, homeTeamId, awayTeamId });
+      continue;
+    }
+    const played = rm.homeGoals != null && rm.awayGoals != null;
+    const curPlayed = cur.rm.homeGoals != null && cur.rm.awayGoals != null;
+    const goals = rm.goals?.length ?? 0;
+    const curGoals = cur.rm.goals?.length ?? 0;
+    if ((played && !curPlayed) || (played === curPlayed && goals > curGoals)) {
+      best.set(key, { rm, homeTeamId, awayTeamId });
+    }
+  }
 
+  for (const { rm, homeTeamId, awayTeamId } of best.values()) {
     const existing =
       byRef.get(rm.externalRef) ?? byPair.get(pairKey(rm.stage, homeTeamId, awayTeamId));
 

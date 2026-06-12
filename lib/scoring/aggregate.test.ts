@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { scorePart2 } from "./part2";
 import { scorePart4 } from "./part4";
 import { computeGroupTable } from "./group-table";
-import { buildLeaderboard, type WorldState } from "./index";
+import { buildLeaderboard, actualTop3ForGroup, type WorldState } from "./index";
 import type { ScoringMatch, ScoringTeam } from "./types";
 
 describe("Part 2 questions", () => {
@@ -93,5 +93,38 @@ describe("buildLeaderboard", () => {
 
     expect(board[0].name).toBe("Alice");
     expect(board[0].total).toBeGreaterThan(board[1].total);
+  });
+});
+
+describe("Part 3 only scores once a group is complete", () => {
+  const teams: ScoringTeam[] = ["A", "B", "C", "D"].map((id) => ({ id, name: id, groupCode: "G" }));
+  const fixtures: [string, string][] = [
+    ["A", "B"], ["C", "D"], ["A", "C"], ["B", "D"], ["A", "D"], ["B", "C"],
+  ];
+  const mk = (home: string, away: string, hg: number, ag: number): ScoringMatch => ({
+    id: `${home}${away}`, stage: "GROUP", groupCode: "G", homeTeamId: home, awayTeamId: away,
+    status: "FINISHED", homeGoals: hg, awayGoals: ag, wentToExtraTime: false, shootoutWinnerTeamId: null, goals: [],
+  });
+
+  it("returns null while games remain", () => {
+    // Only 3 of 6 played -> each team has played <3
+    const partial = [mk("A", "B", 1, 0), mk("C", "D", 2, 2), mk("A", "C", 1, 1)];
+    expect(actualTop3ForGroup("G", { teams, matches: partial, officialPart2: {} })).toBeNull();
+  });
+
+  it("returns the top three once every game is played", () => {
+    const all = fixtures.map(([h, a]) => mk(h, a, h === "A" ? 2 : 1, 0)); // A wins all
+    const top3 = actualTop3ForGroup("G", { teams, matches: all, officialPart2: {} });
+    expect(top3?.firstTeamId).toBe("A");
+    expect(top3).not.toBeNull();
+  });
+
+  it("honours an organiser override even mid-tournament", () => {
+    const partial = [mk("A", "B", 1, 0)];
+    const top3 = actualTop3ForGroup("G", {
+      teams, matches: partial, officialPart2: {},
+      groupOverrides: { G: { firstTeamId: "D", secondTeamId: "C", thirdTeamId: "B" } },
+    });
+    expect(top3?.firstTeamId).toBe("D");
   });
 });

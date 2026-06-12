@@ -53,7 +53,12 @@ export interface EntrantScore {
   total: number;
 }
 
-/** Resolve the actual top-three for a group: override if present, else computed. */
+/**
+ * Resolve the actual top-three for a group. An organiser override (the confirmed
+ * final table) wins. Otherwise the table is only used once the group is COMPLETE —
+ * every team has played all three games — so Part 3 doesn't score on partial
+ * standings mid-tournament.
+ */
 export function actualTop3ForGroup(
   groupCode: string,
   world: WorldState,
@@ -62,7 +67,8 @@ export function actualTop3ForGroup(
   if (override) return override;
 
   const table = computeGroupTable(groupCode, world.teams, world.matches);
-  if (table.length < 3 || table[2].played === 0) return null; // group not complete enough
+  const complete = table.length === 4 && table.every((r) => r.played >= 3);
+  if (!complete) return null; // group not finished yet — score nothing
   return {
     firstTeamId: table[0].teamId,
     secondTeamId: table[1].teamId,
