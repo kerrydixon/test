@@ -26,7 +26,7 @@ const pairKey = (stage: string, a: string, b: string) =>
   `${stage}|${[a, b].sort().join("-")}`;
 
 /** Build the provider from the admin-configured "resultsUrls" setting, if any. */
-async function configuredProvider(): Promise<ResultsProvider> {
+export async function configuredProvider(): Promise<ResultsProvider> {
   const row = await prisma.setting.findUnique({ where: { key: "resultsUrls" } });
   const urls = row?.value
     ? row.value.split(",").map((s) => s.trim()).filter(Boolean)
