@@ -46,13 +46,14 @@ function parseGoalCell(html: string, teamName: string): RawGoal[] {
   // wraps them in block elements. Then read the text from a single, uniquely-id'd
   // wrapper — selecting by tag ("div") would also match inner divs and concatenate
   // their text, reading every goal twice.
+  // One goal per line: split on <br> and block-level tags only. NOT on </span>,
+  // which is inline and would fragment a single goal (name/minute spans).
   const normalized = html
     .replace(/<br\s*\/?>/gi, "\n")
-    .replace(/<\/(div|li|p|tr|span)>/gi, "\n");
+    .replace(/<\/(div|li|p)>/gi, "\n");
   const text = cheerio.load(`<div id="goalcell">${normalized}</div>`)("#goalcell").text();
 
   const goals: RawGoal[] = [];
-  const seen = new Set<string>(); // a player can't score twice in the same minute
   for (const line of text.split("\n").map((l) => l.trim()).filter(Boolean)) {
     const isOwnGoal = /\(o\.g\.\)/i.test(line);
     // A normal penalty "(pen.)" counts; only shoot-out goals are excluded. Wikipedia
@@ -65,12 +66,10 @@ function parseGoalCell(html: string, teamName: string): RawGoal[] {
       .replace(/\s+/g, " ")
       .trim();
     if (!scorerName) continue; // skip stray punctuation-only lines
+    // A line may list several minutes for one player ("Kane 12', 80'") = two goals.
     const minutes = [...line.matchAll(MINUTE_RE)].map((m) => Number(m[1]));
     const useMinutes = minutes.length ? minutes : [0];
     for (const minute of useMinutes) {
-      const key = `${scorerName.toLowerCase()}|${minute}|${isOwnGoal}`;
-      if (seen.has(key)) continue;
-      seen.add(key);
       goals.push({
         teamName,
         scorerName,

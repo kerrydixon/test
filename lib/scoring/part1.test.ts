@@ -111,3 +111,31 @@ describe("Part 1 fantasy scoring", () => {
     expect(result.perScorer.find((s) => s.name === "Striker")!.points).toBe(150);
   });
 });
+
+describe("Part 1 team goals come from the scoreline", () => {
+  it("uses homeGoals/awayGoals, not the count of goal events", () => {
+    // Score says 4-1 but only 2 USA goal events are recorded (imperfect feed).
+    const m = match({
+      id: "m4",
+      homeTeamId: "USA",
+      awayTeamId: "PAR",
+      homeGoals: 4,
+      awayGoals: 1,
+      goals: [
+        goal({ teamId: "USA", scorerName: "Pulisic" }),
+        goal({ teamId: "USA", scorerName: "Reyna" }),
+        goal({ teamId: "PAR", scorerName: "Almiron" }),
+      ],
+    });
+    const r = scorePart1(
+      { teamIds: ["USA", "ZZZ"], scorerNames: ["Pulisic", "a", "b", "c", "d"] },
+      [m],
+    );
+    // USA: win 250 + 4 (scoreline) * 150 - 1 * 100 = 750
+    expect(r.perTeam[0].goalsFor).toBe(4);
+    expect(r.perTeam[0].goalsAgainst).toBe(1);
+    expect(r.perTeam[0].total).toBe(750);
+    // Scorer credit still comes from events: Pulisic got 1.
+    expect(r.perScorer.find((s) => s.name === "Pulisic")!.goals).toBe(1);
+  });
+});

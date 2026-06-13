@@ -132,12 +132,14 @@ describe("goal cells wrapped in block elements (real Wikipedia markup)", () => {
     expect(m.goals!.map((g) => g.scorerName).sort()).toEqual(["Jiménez", "Raphinha"]);
   });
 
-  it("collapses a goal duplicated at the same minute", () => {
-    const dup = `
+  it("counts a player's two goals (multiple minutes on one line) twice", () => {
+    const two = `
       <table class="footballbox">
-        <tr><th class="fhome">A</th><th class="fscore"><a>1–0</a></th><th class="faway">B</th></tr>
-        <tr><td class="fgoals fhgoal"><div>Smith 30'<br>Smith 30'</div></td><td></td><td class="fgoals fagoal"></td></tr>
+        <tr><th class="fhome">A</th><th class="fscore"><a>2–0</a></th><th class="faway">B</th></tr>
+        <tr><td class="fgoals fhgoal">Kane 12', 80'</td><td></td><td class="fgoals fagoal"></td></tr>
       </table>`;
-    expect(parseFootballBoxes(dup)[0].goals).toHaveLength(1);
+    const goals = parseFootballBoxes(two)[0].goals!;
+    expect(goals).toHaveLength(2);
+    expect(goals.every((g) => g.scorerName === "Kane")).toBe(true);
   });
 });

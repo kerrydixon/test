@@ -51,6 +51,21 @@ export function goalsAgainstTeam(m: ScoringMatch, teamId: string): number {
   return countedGoals(m).filter((g) => g.teamId === opponentId).length;
 }
 
+/**
+ * A team's goals FROM THE SCORELINE (homeGoals/awayGoals). This is the reliable
+ * figure for Part 1 team points — it already includes own goals in their favour
+ * and never disagrees with the displayed result, unlike counting goal events.
+ */
+export function scoreForTeam(m: ScoringMatch, teamId: string): number {
+  if (!isPlayed(m)) return 0;
+  return (teamId === m.homeTeamId ? m.homeGoals : m.awayGoals) ?? 0;
+}
+
+export function scoreAgainstTeam(m: ScoringMatch, teamId: string): number {
+  if (!isPlayed(m)) return 0;
+  return (teamId === m.homeTeamId ? m.awayGoals : m.homeGoals) ?? 0;
+}
+
 /** Matches involving a team that have a result, sorted defensively. */
 export function teamMatches(
   matches: ScoringMatch[],

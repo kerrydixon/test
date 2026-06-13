@@ -11,10 +11,10 @@ import type { FantasyEntry, ScoringMatch } from "./types";
 import { normaliseName, playerMatches } from "./names";
 import {
   countedGoals,
-  goalsAgainstTeam,
-  goalsForTeam,
   isPlayed,
   outcomeForTeam,
+  scoreAgainstTeam,
+  scoreForTeam,
   teamMatches,
 } from "./match-utils";
 
@@ -57,8 +57,10 @@ export function scorePart1(
       const outcome = outcomeForTeam(m, teamId);
       if (outcome === "WIN") resultPoints += PART1_POINTS.win;
       else if (outcome === "DRAW") resultPoints += PART1_POINTS.draw;
-      goalsFor += goalsForTeam(m, teamId);
-      goalsAgainst += goalsAgainstTeam(m, teamId);
+      // Use the scoreline (not the count of goal events) so team goals always
+      // match the displayed result and never drift from imperfect event parsing.
+      goalsFor += scoreForTeam(m, teamId);
+      goalsAgainst += scoreAgainstTeam(m, teamId);
     }
 
     const goalPoints =

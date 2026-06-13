@@ -8,10 +8,10 @@ import { prisma } from "@/lib/db";
 import { getEntrantInputs, getWorldState } from "@/lib/data";
 import {
   countedGoals,
-  goalsAgainstTeam,
-  goalsForTeam,
   isPlayed,
   outcomeForTeam,
+  scoreAgainstTeam,
+  scoreForTeam,
   scoreEntrant,
   computeGroupTable,
   matchWinner,
@@ -139,8 +139,8 @@ export async function buildExportWorkbook(): Promise<ExcelJS.Workbook> {
       if (o === "WIN") w++;
       else if (o === "DRAW") d++;
       else if (o === "LOSS") l++;
-      gf += goalsForTeam(m, teamId);
-      ga += goalsAgainstTeam(m, teamId);
+      gf += scoreForTeam(m, teamId);
+      ga += scoreAgainstTeam(m, teamId);
     }
     const row = ws.addRow([
       `${team.name} £${(team.priceTier / 1000).toFixed(1)}bn`,
