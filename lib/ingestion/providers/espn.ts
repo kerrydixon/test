@@ -4,9 +4,9 @@
 // each player's cumulative totals (goals, assists, …). We use it to award fantasy
 // goal-scorers their assist points, which the match feed (Wikipedia) doesn't carry.
 //
-// The exact JSON shape varies, so parseEspnStats is deliberately tolerant: it reads
-// athletes from either a flat `statistics` array or `categories`/`totals` aligned
-// with the top-level category `names`, and pulls out goals/assists by key.
+// The exact JSON shape and the working query params vary, so we (a) try a list of
+// candidate URLs with a timeout, and (b) parse tolerantly: athletes from either a
+// flat `statistics` array or `categories`/`totals` aligned with top-level `names`.
 
 export interface RawPlayerStat {
   name: string;
@@ -14,8 +14,42 @@ export interface RawPlayerStat {
   assists: number;
 }
 
-export const DEFAULT_STATS_URL =
-  "https://site.web.api.espn.com/apis/common/v3/sports/soccer/fifa.world/statistics/byathlete?sort=offensive.assists:desc&limit=300";
+const BASE = "https://site.web.api.espn.com/apis/common/v3/sports/soccer/fifa.world/statistics/byathlete";
+
+// Tried in order until one returns players. The first is also the documented default.
+export const ESPN_CANDIDATES = [
+  `${BASE}?region=us&lang=en&contentorigin=espn&limit=100&sort=offensive.assists:desc`,
+  `${BASE}?region=us&lang=en&contentorigin=espn&limit=100`,
+  `${BASE}?limit=100`,
+  `${BASE}?limit=50&page=1`,
+];
+
+export const DEFAULT_STATS_URL = ESPN_CANDIDATES[0];
+
+const UA =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
+
+export function shortUrl(url: string): string {
+  const q = url.split("?")[1] ?? "";
+  return q ? `…?${q.slice(0, 40)}` : url.slice(-40);
+}
+
+export async function fetchJson(
+  url: string,
+  ms = 12000,
+): Promise<{ ok: boolean; status: number; text: string }> {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), ms);
+  try {
+    const res = await fetch(url, {
+      headers: { "User-Agent": UA, Accept: "application/json" },
+      signal: ctrl.signal,
+    });
+    return { ok: res.ok, status: res.status, text: res.ok ? await res.text() : "" };
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -65,17 +99,26 @@ export function parseEspnStats(json: any): RawPlayerStat[] {
   return out;
 }
 
-export async function fetchEspnStats(
-  url: string = DEFAULT_STATS_URL,
-): Promise<{ raw: unknown; players: RawPlayerStat[] }> {
-  const res = await fetch(url, {
-    headers: {
-      "User-Agent":
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-      Accept: "application/json",
-    },
-  });
-  if (!res.ok) throw new Error(`ESPN stats ${res.status}`);
-  const raw = await res.json();
-  return { raw, players: parseEspnStats(raw) };
+export interface EspnResult {
+  url: string;
+  players: RawPlayerStat[];
+  tried: string[];
+}
+
+/** Try the configured URL, else each candidate, until one returns players. */
+export async function fetchEspnStats(configuredUrl?: string): Promise<EspnResult> {
+  const urls = configuredUrl ? [configuredUrl] : ESPN_CANDIDATES;
+  const tried: string[] = [];
+  for (const url of urls) {
+    try {
+      const r = await fetchJson(url);
+      tried.push(`${shortUrl(url)}=${r.status}`);
+      if (!r.ok) continue;
+      const players = parseEspnStats(JSON.parse(r.text));
+      if (players.length) return { url, players, tried };
+    } catch (e) {
+      tried.push(`${shortUrl(url)}=${e instanceof Error && e.name === "AbortError" ? "timeout" : "err"}`);
+    }
+  }
+  throw new Error(tried.join("; ") || "no candidates");
 }

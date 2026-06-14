@@ -17,9 +17,9 @@ async function statsUrl(): Promise<string | undefined> {
 }
 
 export async function syncPlayerStats(): Promise<StatsSyncResult> {
-  let players;
+  let result0;
   try {
-    players = (await fetchEspnStats(await statsUrl())).players;
+    result0 = await fetchEspnStats(await statsUrl());
   } catch (e) {
     const result = {
       ok: false,
@@ -29,6 +29,7 @@ export async function syncPlayerStats(): Promise<StatsSyncResult> {
     await logStats(result);
     return result;
   }
+  const players = result0.players;
 
   // Keep one row per normalised name (the source may list a player twice).
   const byId = new Map<string, { name: string; goals: number; assists: number }>();
