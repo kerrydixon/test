@@ -59,6 +59,23 @@ export async function setStatsUrl(formData: FormData) {
   );
 }
 
+export async function setFootballDataKey(formData: FormData) {
+  await requireAdmin();
+  const value = String(formData.get("key") ?? "").trim();
+  await prisma.setting.upsert({
+    where: { key: "footballDataKey" },
+    update: { value },
+    create: { key: "footballDataKey", value },
+  });
+  redirect(
+    `/admin?sync=${encodeURIComponent(
+      value
+        ? "Saved football-data.org key — assists will use it. Click Refresh to test."
+        : "Cleared football-data.org key — falling back to ESPN.",
+    )}&ok=1`,
+  );
+}
+
 export async function setResultsUrls(formData: FormData) {
   await requireAdmin();
   const value = String(formData.get("urls") ?? "").trim();

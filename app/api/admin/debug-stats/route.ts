@@ -6,6 +6,7 @@ import {
   parseEspnStats,
   shortUrl,
 } from "@/lib/ingestion/providers/espn";
+import { fetchFootballDataScorers } from "@/lib/ingestion/providers/football-data";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -18,6 +19,28 @@ export async function GET(request: Request) {
   if (!(await isAdmin())) return new Response("Unauthorized", { status: 401 });
 
   const params = new URL(request.url).searchParams;
+
+  // If a football-data.org key is configured, that's the source — probe it.
+  const fdKey = (await prisma.setting.findUnique({ where: { key: "footballDataKey" } }))?.value?.trim();
+  if (fdKey) {
+    try {
+      const { url, players } = await fetchFootballDataScorers(fdKey);
+      const lines = [
+        `source: football-data.org`,
+        `url: ${url}`,
+        `parsed players: ${players.length}`,
+        "",
+        ...[...players]
+          .sort((a, b) => b.assists - a.assists)
+          .slice(0, 40)
+          .map((p) => `  ${p.name} — ${p.goals}G ${p.assists}A`),
+      ];
+      return new Response(lines.join("\n"), { headers: { "Content-Type": "text/plain; charset=utf-8" } });
+    } catch (e) {
+      return new Response(`football-data error: ${e instanceof Error ? e.message : e}`, { status: 502 });
+    }
+  }
+
   const configured = (await prisma.setting.findUnique({ where: { key: "statsUrl" } }))?.value?.trim();
   const override = params.get("url") || undefined;
   const urls = override ? [override] : configured ? [configured, ...ESPN_CANDIDATES] : ESPN_CANDIDATES;

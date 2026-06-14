@@ -39,3 +39,20 @@ describe("parseEspnStats", () => {
     expect(parseEspnStats({ athletes: [] })).toEqual([]);
   });
 });
+
+import { parseFootballDataScorers } from "./providers/football-data";
+
+describe("parseFootballDataScorers", () => {
+  it("reads player name, goals and assists", () => {
+    const json = {
+      scorers: [
+        { player: { name: "Kylian Mbappé" }, goals: 4, assists: 2 },
+        { player: { name: "Harry Kane" }, goals: 3, assists: null },
+      ],
+    };
+    expect(parseFootballDataScorers(json)).toEqual([
+      { name: "Kylian Mbappé", goals: 4, assists: 2 },
+      { name: "Harry Kane", goals: 3, assists: 0 },
+    ]);
+  });
+});
