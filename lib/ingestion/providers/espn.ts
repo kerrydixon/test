@@ -15,13 +15,16 @@ export interface RawPlayerStat {
 }
 
 const BASE = "https://site.web.api.espn.com/apis/common/v3/sports/soccer/fifa.world/statistics/byathlete";
+const Q = "region=us&lang=en&contentorigin=espn&limit=100";
 
-// Tried in order until one returns players. The first is also the documented default.
+// Tried in order until one returns players. fifa.world returns 200 but empty without
+// a season, so season variants are tried first.
 export const ESPN_CANDIDATES = [
-  `${BASE}?region=us&lang=en&contentorigin=espn&limit=100&sort=offensive.assists:desc`,
-  `${BASE}?region=us&lang=en&contentorigin=espn&limit=100`,
-  `${BASE}?limit=100`,
-  `${BASE}?limit=50&page=1`,
+  `${BASE}?season=2026&seasontype=1&${Q}`,
+  `${BASE}?season=2026&${Q}`,
+  `${BASE}?season=2026&seasontype=3&${Q}`,
+  `${BASE}?season=2026&seasontype=2&${Q}`,
+  `${BASE}?${Q}`,
 ];
 
 export const DEFAULT_STATS_URL = ESPN_CANDIDATES[0];
@@ -36,7 +39,7 @@ export function shortUrl(url: string): string {
 
 export async function fetchJson(
   url: string,
-  ms = 12000,
+  ms = 8000,
 ): Promise<{ ok: boolean; status: number; text: string }> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), ms);
