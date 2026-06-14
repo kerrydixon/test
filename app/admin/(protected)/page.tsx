@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { CheckCircle2, Download, FlaskConical, RefreshCw, Trash2, XCircle } from "lucide-react";
 import { prisma } from "@/lib/db";
-import { runSync, setResultsUrls, simulateGroupStageAction, wipeAllDataAction } from "../actions";
+import { runSync, setResultsUrls, setStatsUrl, simulateGroupStageAction, wipeAllDataAction } from "../actions";
 import { SubmitButton } from "@/components/SubmitButton";
 
 export const dynamic = "force-dynamic";
@@ -14,13 +14,15 @@ export default async function AdminDashboard({
   searchParams: Promise<{ sync?: string; ok?: string }>;
 }) {
   const { sync: syncMsg, ok } = await searchParams;
-  const [entrants, matchesPlayed, matchesTotal, logs, resultsUrlSetting] = await Promise.all([
-    prisma.entrant.count(),
-    prisma.match.count({ where: { status: "FINISHED" } }),
-    prisma.match.count(),
-    prisma.syncLog.findMany({ orderBy: { ranAt: "desc" }, take: 5 }),
-    prisma.setting.findUnique({ where: { key: "resultsUrls" } }),
-  ]);
+  const [entrants, matchesPlayed, matchesTotal, logs, resultsUrlSetting, statsUrlSetting] =
+    await Promise.all([
+      prisma.entrant.count(),
+      prisma.match.count({ where: { status: "FINISHED" } }),
+      prisma.match.count(),
+      prisma.syncLog.findMany({ orderBy: { ranAt: "desc" }, take: 5 }),
+      prisma.setting.findUnique({ where: { key: "resultsUrls" } }),
+      prisma.setting.findUnique({ where: { key: "statsUrl" } }),
+    ]);
 
   const stats = [
     { label: "Entrants", value: entrants, href: "/admin/entries" },
@@ -121,6 +123,33 @@ export default async function AdminDashboard({
             className="input"
             defaultValue={resultsUrlSetting?.value ?? ""}
             placeholder="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_group_stage, https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage"
+          />
+          <SubmitButton className="btn-secondary" pendingText="Saving…">Save source</SubmitButton>
+        </form>
+      </div>
+
+      {/* Player stats source (assists) */}
+      <div className="card mt-8 p-5">
+        <h2 className="font-semibold text-slate-900">Player stats source (assists)</h2>
+        <p className="mt-1 text-sm text-slate-500">
+          Where goal-scorer <strong>assists</strong> come from (the match feed doesn&apos;t
+          carry them). Defaults to ESPN&apos;s public stats API — leave blank to use it.
+          Use{" "}
+          <a href="/api/admin/debug-stats" className="font-medium text-emerald-600" target="_blank">
+            debug-stats
+          </a>{" "}
+          to see what&apos;s parsed, or{" "}
+          <a href="/api/admin/debug-stats?raw=1" className="font-medium text-emerald-600" target="_blank">
+            ?raw=1
+          </a>{" "}
+          to see the source&apos;s JSON shape.
+        </p>
+        <form action={setStatsUrl} className="mt-3 flex flex-col gap-2 sm:flex-row">
+          <input
+            name="url"
+            className="input"
+            defaultValue={statsUrlSetting?.value ?? ""}
+            placeholder="(default: ESPN fifa.world byathlete stats endpoint)"
           />
           <SubmitButton className="btn-secondary" pendingText="Saving…">Save source</SubmitButton>
         </form>

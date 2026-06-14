@@ -13,11 +13,12 @@ import {
 import type { ActualTop3 } from "./scoring/part3";
 
 export async function getWorldState(): Promise<WorldState> {
-  const [teams, matches, official, overrides] = await Promise.all([
+  const [teams, matches, official, overrides, playerStats] = await Promise.all([
     prisma.team.findMany(),
     prisma.match.findMany({ include: { events: true } }),
     prisma.part2OfficialAnswer.findMany(),
     prisma.groupStandingOverride.findMany(),
+    prisma.playerStat.findMany({ where: { assists: { gt: 0 } } }),
   ]);
 
   const scoringMatches: ScoringMatch[] = matches.map((m) => ({
@@ -59,6 +60,7 @@ export async function getWorldState(): Promise<WorldState> {
     matches: scoringMatches,
     officialPart2,
     groupOverrides,
+    assistStats: playerStats.map((p) => ({ name: p.name, assists: p.assists })),
   };
 }
 

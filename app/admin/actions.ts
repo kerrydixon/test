@@ -10,6 +10,7 @@ import {
 } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { sync } from "@/lib/ingestion/sync";
+import { syncPlayerStats } from "@/lib/ingestion/stats-sync";
 import { simulateGroupStage, wipeAllData } from "@/lib/demo/simulate";
 
 export async function login(formData: FormData) {
@@ -36,9 +37,26 @@ function revalidateEverything() {
 export async function runSync() {
   await requireAdmin();
   const result = await sync();
+  const stats = await syncPlayerStats(); // assists from the stats source
   revalidateEverything();
+  const message = `${result.message} · ${stats.message}`;
   // Surface the outcome to the dashboard so it's obvious the button did something.
-  redirect(`/admin?sync=${encodeURIComponent(result.message)}&ok=${result.ok ? 1 : 0}`);
+  redirect(`/admin?sync=${encodeURIComponent(message)}&ok=${result.ok && stats.ok ? 1 : 0}`);
+}
+
+export async function setStatsUrl(formData: FormData) {
+  await requireAdmin();
+  const value = String(formData.get("url") ?? "").trim();
+  await prisma.setting.upsert({
+    where: { key: "statsUrl" },
+    update: { value },
+    create: { key: "statsUrl", value },
+  });
+  redirect(
+    `/admin?sync=${encodeURIComponent(
+      value ? "Saved stats source — click Refresh to test it." : "Cleared — using the default ESPN stats endpoint.",
+    )}&ok=1`,
+  );
 }
 
 export async function setResultsUrls(formData: FormData) {

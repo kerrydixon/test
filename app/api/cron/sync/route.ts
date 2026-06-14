@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sync } from "@/lib/ingestion/sync";
+import { syncPlayerStats } from "@/lib/ingestion/stats-sync";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60; // a full sync fetches several pages + bulk DB writes
@@ -16,5 +17,6 @@ export async function GET(request: Request) {
   }
 
   const result = await sync();
-  return NextResponse.json(result, { status: result.ok ? 200 : 502 });
+  const stats = await syncPlayerStats();
+  return NextResponse.json({ result, stats }, { status: result.ok ? 200 : 502 });
 }

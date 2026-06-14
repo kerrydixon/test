@@ -180,6 +180,17 @@ model Part2OfficialAnswer {
   answers    String[] // acceptable answers (ties allow several)
 }
 
+// Cumulative per-player goals/assists from a stats source (ESPN). Used to award
+// fantasy goal-scorers their assist points (assists aren't in the match feed).
+model PlayerStat {
+  id        String   @id // normalised player name
+  name      String
+  goals     Int      @default(0)
+  assists   Int      @default(0)
+  source    String   @default("espn")
+  updatedAt DateTime @updatedAt
+}
+
 model GroupStandingOverride {
   groupCode    String @id // "A".."L"
   firstTeamId  String

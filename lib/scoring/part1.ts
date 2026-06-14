@@ -46,6 +46,8 @@ export interface Part1Breakdown {
 export function scorePart1(
   entry: FantasyEntry,
   matches: ScoringMatch[],
+  /** Cumulative assists per player from the stats source (assists aren't in the match feed). */
+  assistStats?: { name: string; assists: number }[],
 ): Part1Breakdown {
   const perTeam = entry.teamIds.map((teamId) => {
     let resultPoints = 0;
@@ -104,7 +106,13 @@ export function scorePart1(
 
   const perScorer = entry.scorerNames.map((name) => {
     const goals = sumMatching(goalTally, name);
-    const assists = sumMatching(assistTally, name);
+    // Assists come from the stats source (token-matched to the picked name); fall
+    // back to match-event assists only if no stats are supplied.
+    const assists = assistStats
+      ? assistStats
+          .filter((s) => playerMatches(name, s.name))
+          .reduce((sum, s) => sum + s.assists, 0)
+      : sumMatching(assistTally, name);
     return {
       name,
       goals,
