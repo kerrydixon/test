@@ -60,8 +60,23 @@ also protects them from the admin "Wipe ALL data" testing tool.
   limit) and on demand via the admin **“Refresh results now”** button, which is the main
   way to update during match days (Pro plans can increase the cron frequency).
 - The scraper **never** overwrites a match marked **locked**, and it preserves any
-  manually-entered goals. The organiser confirms granular fields (assists, own-goals,
-  shoot-outs) and the judgement-based questions (Golden Boot, top-scoring group, …).
+  manually-entered goals. The organiser confirms granular fields (own-goals, shoot-out
+  winners) and the judgement-based questions (Golden Boot, top-scoring group, …).
+
+## How assists flow in
+
+Assists (75 pts each) aren't in the match feed, so they come from a separate player-stats
+source synced alongside results (admin **Refresh** + the daily cron) into `PlayerStat`,
+matched to fantasy picks by name. Configure it under **/admin → Player stats source**:
+
+- **Recommended — football-data.org** (`lib/ingestion/providers/football-data.ts`): paste a
+  free API key (from football-data.org/client/register) into the admin field. Uses the v4
+  `/competitions/WC/scorers` endpoint (goals + assists; WC is in the free tier).
+- **Fallback — ESPN** (`lib/ingestion/providers/espn.ts`): no key, but its public
+  `byathlete` API returned empty for the 2026 World Cup, so it's unreliable here.
+
+`/api/admin/debug-stats` (admin-only, read-only) shows exactly what the configured source
+returns, for verifying the setup.
 
 > The live results page is empty until the tournament starts (11 June 2026), and the
 > Wikipedia `footballbox` selectors are a starting point — confirm them against the live
