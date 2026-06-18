@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { normaliseName, namesMatch } from "./names";
-import { scorePart1 } from "./part1";
 import { scorePart2 } from "./part2";
+import { bestMatch } from "@/lib/ingestion/scorer-stats";
 import { suggestAnswers, type SuggestionMatch, type SuggestionTeam } from "./suggestions";
 
 describe("name normalisation", () => {
@@ -12,21 +12,10 @@ describe("name normalisation", () => {
     expect(namesMatch("Kane", "Yamal")).toBe(false);
   });
 
-  it("is used for scorer matching in Part 1", () => {
-    const match: SuggestionMatch = base({
-      id: "m",
-      homeTeamId: "A",
-      awayTeamId: "B",
-      status: "FINISHED",
-      homeGoals: 1,
-      awayGoals: 0,
-      goals: [goal("A", "Kylian Mbappé")],
-    });
-    const r = scorePart1(
-      { teamIds: ["X", "Y"], scorerNames: ["kylian mbappe"] },
-      [match],
-    );
-    expect(r.perScorer[0].points).toBe(150);
+  it("bestMatch links a picked name to the full source name", () => {
+    const players = [{ name: "Kylian Mbappé", country: "France", goals: 3, assists: 1 }];
+    expect(bestMatch("kylian mbappe", players)?.name).toBe("Kylian Mbappé");
+    expect(bestMatch("Mbappe", players)?.goals).toBe(3);
   });
 
   it("is used for Part 2 answer matching", () => {
@@ -38,22 +27,16 @@ describe("name normalisation", () => {
     expect(normaliseName("Vinícius Jr.")).toBe(normaliseName("vinicius jr"));
   });
 
-  it("full-name picks match surname-only feed names (and vice versa)", () => {
-    const match: SuggestionMatch = base({
-      id: "m",
-      homeTeamId: "A",
-      awayTeamId: "B",
-      status: "FINISHED",
-      homeGoals: 2,
-      awayGoals: 0,
-      goals: [goal("A", "Mbappé"), goal("A", "Lautaro Martínez", 50)],
-    });
-    const r = scorePart1(
-      { teamIds: ["X", "Y"], scorerNames: ["Kylian Mbappé", "Martinez"] },
-      [match],
-    );
-    expect(r.perScorer.find((s) => s.name === "Kylian Mbappé")!.goals).toBe(1);
-    expect(r.perScorer.find((s) => s.name === "Martinez")!.goals).toBe(1);
+  it("bestMatch disambiguates same-surname players by productivity then specificity", () => {
+    const players = [
+      { name: "Lautaro Martínez", country: "Argentina", goals: 2, assists: 0 },
+      { name: "Emiliano Martínez", country: "Argentina", goals: 0, assists: 0 },
+      { name: "Brahim Díaz", country: "Morocco", goals: 0, assists: 1 },
+      { name: "Luis Díaz", country: "Colombia", goals: 1, assists: 0 },
+    ];
+    expect(bestMatch("Martinez", players)?.name).toBe("Lautaro Martínez"); // most productive
+    expect(bestMatch("Brahim Diaz", players)?.name).toBe("Brahim Díaz"); // not Luis
+    expect(bestMatch("Luis Diaz", players)?.name).toBe("Luis Díaz");
   });
 });
 

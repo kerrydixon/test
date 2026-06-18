@@ -41,8 +41,8 @@ export interface WorldState {
   officialPart2: Part2OfficialAnswers;
   /** Organiser-confirmed final top-three per group; falls back to the computed table. */
   groupOverrides?: Record<string, ActualTop3>;
-  /** Cumulative assists per player from the stats source (for fantasy scorer points). */
-  assistStats?: { name: string; assists: number }[];
+  /** Curated goals/assists per picked scorer (normalised name -> stats). */
+  scorerStats?: Map<string, { goals: number; assists: number }>;
 }
 
 export interface EntrantScore {
@@ -82,7 +82,7 @@ export function scoreEntrant(
   entrant: EntrantInput,
   world: WorldState,
 ): EntrantScore {
-  const part1 = scorePart1(entrant.fantasy, world.matches, world.assistStats);
+  const part1 = scorePart1(entrant.fantasy, world.matches, world.scorerStats);
   const part2 = scorePart2(entrant.part2Answers, world.officialPart2);
 
   const groups: Part3GroupResult[] = [];

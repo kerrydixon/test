@@ -8,9 +8,8 @@
 // Shoot-out goals never count; extra-time goals do.
 
 import type { FantasyEntry, ScoringMatch } from "./types";
-import { normaliseName, playerMatches } from "./names";
+import { normaliseName } from "./names";
 import {
-  countedGoals,
   isPlayed,
   outcomeForTeam,
   scoreAgainstTeam,
@@ -46,8 +45,8 @@ export interface Part1Breakdown {
 export function scorePart1(
   entry: FantasyEntry,
   matches: ScoringMatch[],
-  /** Cumulative assists per player from the stats source (assists aren't in the match feed). */
-  assistStats?: { name: string; assists: number }[],
+  /** Curated goals/assists per picked scorer (normalised name -> stats). */
+  scorerStats?: Map<string, { goals: number; assists: number }>,
 ): Part1Breakdown {
   const perTeam = entry.teamIds.map((teamId) => {
     let resultPoints = 0;
@@ -78,41 +77,13 @@ export function scorePart1(
     };
   });
 
-  // Tally scorer goals/assists across every played match, keyed by normalised
-  // name so "Mbappé", "mbappe" and "Mbappe " all count as the same player.
-  const goalTally = new Map<string, number>();
-  const assistTally = new Map<string, number>();
-  for (const m of matches) {
-    if (!isPlayed(m)) continue;
-    for (const g of countedGoals(m)) {
-      if (!g.isOwnGoal) {
-        const key = normaliseName(g.scorerName);
-        goalTally.set(key, (goalTally.get(key) ?? 0) + 1);
-      }
-      if (g.assistName) {
-        const key = normaliseName(g.assistName);
-        assistTally.set(key, (assistTally.get(key) ?? 0) + 1);
-      }
-    }
-  }
-
-  const sumMatching = (tally: Map<string, number>, pick: string) => {
-    let sum = 0;
-    for (const [eventName, count] of tally) {
-      if (playerMatches(pick, eventName)) sum += count;
-    }
-    return sum;
-  };
-
+  // Goal-scorer goals AND assists come from the curated ScorerStat table (keyed by
+  // the normalised picked name), which auto-fills from the stats source by full name
+  // and is organiser-editable. This avoids surname ambiguity (e.g. two "Díaz").
   const perScorer = entry.scorerNames.map((name) => {
-    const goals = sumMatching(goalTally, name);
-    // Assists come from the stats source (token-matched to the picked name); fall
-    // back to match-event assists only if no stats are supplied.
-    const assists = assistStats
-      ? assistStats
-          .filter((s) => playerMatches(name, s.name))
-          .reduce((sum, s) => sum + s.assists, 0)
-      : sumMatching(assistTally, name);
+    const s = scorerStats?.get(normaliseName(name));
+    const goals = s?.goals ?? 0;
+    const assists = s?.assists ?? 0;
     return {
       name,
       goals,

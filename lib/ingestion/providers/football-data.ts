@@ -14,6 +14,7 @@ export function parseFootballDataScorers(json: any): RawPlayerStat[] {
       name: s?.player?.name ?? s?.player?.shortName ?? "",
       goals: Number(s?.goals ?? 0) || 0,
       assists: Number(s?.assists ?? 0) || 0,
+      country: s?.team?.name ?? undefined,
     }))
     .filter((p: RawPlayerStat) => p.name);
 }

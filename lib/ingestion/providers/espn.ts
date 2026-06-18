@@ -12,6 +12,7 @@ export interface RawPlayerStat {
   name: string;
   goals: number;
   assists: number;
+  country?: string;
 }
 
 const BASE = "https://site.web.api.espn.com/apis/common/v3/sports/soccer/fifa.world/statistics/byathlete";

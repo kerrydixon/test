@@ -8,6 +8,7 @@ import { prisma } from "@/lib/db";
 import { normaliseName } from "@/lib/scoring/names";
 import { fetchEspnStats, type RawPlayerStat } from "./providers/espn";
 import { fetchFootballDataScorers } from "./providers/football-data";
+import { refreshScorerStats } from "./scorer-stats";
 
 export interface StatsSyncResult {
   ok: boolean;
@@ -45,22 +46,25 @@ export async function syncPlayerStats(): Promise<StatsSyncResult> {
   }
 
   // Keep one row per normalised name (the source may list a player twice).
-  const byId = new Map<string, { name: string; goals: number; assists: number }>();
+  const byId = new Map<string, { name: string; goals: number; assists: number; country: string | null }>();
   for (const p of loaded.players) {
     const id = normaliseName(p.name);
     if (!id) continue;
-    byId.set(id, { name: p.name, goals: p.goals, assists: p.assists });
+    byId.set(id, { name: p.name, goals: p.goals, assists: p.assists, country: p.country ?? null });
   }
 
   await prisma.$transaction(
     [...byId.entries()].map(([id, p]) =>
       prisma.playerStat.upsert({
         where: { id },
-        update: { name: p.name, goals: p.goals, assists: p.assists, source: loaded.source },
-        create: { id, name: p.name, goals: p.goals, assists: p.assists, source: loaded.source },
+        update: { name: p.name, goals: p.goals, assists: p.assists, country: p.country, source: loaded.source },
+        create: { id, name: p.name, goals: p.goals, assists: p.assists, country: p.country, source: loaded.source },
       }),
     ),
   );
+
+  // Refresh the curated, organiser-editable per-selected-player table.
+  await refreshScorerStats(prisma);
 
   const withAssists = [...byId.values()].filter((p) => p.assists > 0).length;
   const result = {

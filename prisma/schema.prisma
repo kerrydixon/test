@@ -180,15 +180,30 @@ model Part2OfficialAnswer {
   answers    String[] // acceptable answers (ties allow several)
 }
 
-// Cumulative per-player goals/assists from a stats source (ESPN). Used to award
-// fantasy goal-scorers their assist points (assists aren't in the match feed).
+// Cumulative per-player goals/assists from a stats source (football-data/ESPN),
+// keyed by normalised name. Auto-populates the curated ScorerStat table.
 model PlayerStat {
   id        String   @id // normalised player name
   name      String
+  country   String?
   goals     Int      @default(0)
   assists   Int      @default(0)
   source    String   @default("espn")
   updatedAt DateTime @updatedAt
+}
+
+// One row per goal-scorer actually selected by an entrant. Goals/assists auto-fill
+// from PlayerStat (best name match) but are editable by the organiser; an edited row
+// is `overridden` and won't be auto-changed. This is the source of truth for fantasy
+// goal-scorer points (goals x150 + assists x75).
+model ScorerStat {
+  id         String   @id // normalised picked name
+  name       String // the name as picked by entrants
+  country    String?
+  goals      Int      @default(0)
+  assists    Int      @default(0)
+  overridden Boolean  @default(false)
+  updatedAt  DateTime @updatedAt
 }
 
 model GroupStandingOverride {

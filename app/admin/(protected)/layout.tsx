@@ -5,6 +5,7 @@ import { logout } from "../actions";
 const NAV = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/matches", label: "Matches" },
+  { href: "/admin/scorers", label: "Goal-scorers" },
   { href: "/admin/entries", label: "Entries" },
   { href: "/admin/questions", label: "Questions" },
   { href: "/admin/groups", label: "Group standings" },
