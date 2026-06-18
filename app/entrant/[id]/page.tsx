@@ -64,15 +64,36 @@ export default async function EntrantPage({
           </table>
           <h3 className="mt-4 text-xs font-semibold uppercase tracking-wide text-slate-400">Goal-scorers</h3>
           <table className="mt-1 w-full text-sm">
+            <thead>
+              <tr className="text-xs text-slate-400">
+                <th className="py-1 text-left font-medium">Player</th>
+                <th className="py-1 text-center font-medium">Goals<span className="text-slate-300"> ×150</span></th>
+                <th className="py-1 text-center font-medium">Assists<span className="text-slate-300"> ×75</span></th>
+                <th className="py-1 text-right font-medium">Pts</th>
+              </tr>
+            </thead>
             <tbody className="divide-y divide-slate-100">
               {score.part1.perScorer.map((s) => (
-                <tr key={s.name}>
+                <tr key={s.name} className={s.points > 0 ? "" : "text-slate-400"}>
                   <td className="py-2 text-slate-800">{s.name}</td>
-                  <td className="py-2 text-right text-slate-400">{s.goals}G {s.assists}A</td>
+                  <td className="py-2 text-center tabular-nums">{s.goals}</td>
+                  <td className="py-2 text-center tabular-nums">{s.assists}</td>
                   <td className="py-2 text-right font-semibold tabular-nums text-slate-900">{s.points}</td>
                 </tr>
               ))}
             </tbody>
+            <tfoot>
+              <tr className="border-t border-slate-200 text-xs font-semibold text-slate-500">
+                <td className="py-2">Total</td>
+                <td className="py-2 text-center tabular-nums">
+                  {score.part1.perScorer.reduce((s, p) => s + p.goals, 0)}
+                </td>
+                <td className="py-2 text-center tabular-nums">
+                  {score.part1.perScorer.reduce((s, p) => s + p.assists, 0)}
+                </td>
+                <td className="py-2 text-right tabular-nums text-slate-900">{score.part1.scorerPoints}</td>
+              </tr>
+            </tfoot>
           </table>
         </section>
 
