@@ -120,6 +120,10 @@ Tweak `config/traits.mjs` to add traits or rebalance rarity; edit the matching d
 
 These were scoped out of this build but the parameters are chosen so they're ready to go:
 
+0. **Final art (raster, PFP-grade)** — the in-repo SVGs are the rarity/engine scaffold. For
+   Pudgy/Sappy/Hypurr-grade art, generate raster pieces with OpenAI image generation using
+   **[`art/openai-prompt-kit.md`](art/openai-prompt-kit.md)**. `src/prompt.mjs` turns each token's
+   assigned traits into a ready-to-paste prompt, so the art matches the metadata by construction.
 1. **Smart contract** — ERC-721A (gas-efficient batch mint), **ERC-2981 royalties @ 5%**, 4,800 cap,
    allowlist presale + public mint with a per-wallet cap, delayed reveal, `withdraw`. Full test suite.
 2. **Host the art** — pin `output/images` + `output/metadata` to **IPFS** (e.g. Pinata / NFT.Storage),
