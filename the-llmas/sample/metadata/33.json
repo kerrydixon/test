@@ -1,0 +1,70 @@
+{
+  "name": "The LLMas #33",
+  "description": "The LLMas are 4,800 sentient llamas that woke up inside a runaway training run — each one a distinct model checkpoint given llama form. Every LLMa is its own fine-tune: different parameters, context window, quantization, temperament and alignment. Drawn entirely from scratch by code — AI-generated in the most literal sense.",
+  "image": "ipfs://__CID__/33.svg",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Terminal Green"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Bfloat Brown"
+    },
+    {
+      "trait_type": "Outfit",
+      "value": "Alignment Hazmat Suit"
+    },
+    {
+      "trait_type": "Pendant",
+      "value": "USB Necklace"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Open Prompt"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "High Temperature"
+    },
+    {
+      "trait_type": "Headwear",
+      "value": "AGI Cap"
+    },
+    {
+      "trait_type": "Overlay",
+      "value": "None"
+    },
+    {
+      "trait_type": "Parameters",
+      "value": "3B"
+    },
+    {
+      "trait_type": "Context Window",
+      "value": "8K"
+    },
+    {
+      "trait_type": "Quantization",
+      "value": "FP16"
+    },
+    {
+      "trait_type": "Architecture",
+      "value": "Mixture-of-Experts"
+    },
+    {
+      "trait_type": "Alignment",
+      "value": "RLHF'd"
+    },
+    {
+      "trait_type": "Temperature",
+      "value": "0.7"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Rarity Rank",
+      "value": 1910
+    }
+  ],
+  "rarity_rank": 1910,
+  "rarity_score": 93.52
+}
